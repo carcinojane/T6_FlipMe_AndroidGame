@@ -87,6 +87,10 @@ public class WebViewActivity extends AppCompatActivity
             startFetchTask();
         }
 
+        if(id==R.id.urlTxt){
+            fetchTask.cancel(true);
+        }
+
     }
 
     void startFetchTask(){
