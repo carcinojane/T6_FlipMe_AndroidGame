@@ -100,4 +100,46 @@
 
 
 
+    <LinearLayout
+        android:id="@+id/linear"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+        <TextView
+            android:id="@+id/timerView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="timer"
+            android:textSize="20sp"
+            android:layout_gravity="start"
+            android:gravity="start"
+            android:layout_weight="1"
+            android:layout_marginStart="10dp"/>
+        <TextView
+            android:id="@+id/matchView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="No Match!!"
+            android:textSize="20sp"
+            android:layout_gravity="end"
+            android:gravity="end"
+            android:layout_weight="1"
+            android:layout_marginEnd="15dp"
+            />
+
+    </LinearLayout>
+    <GridLayout
+        android:id="@+id/imageGrid"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="50dp"
+        android:columnCount="3"
+        android:rowCount="4"
+        android:gravity="center"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:paddingTop="15dp"
+        android:paddingBottom="15dp" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
