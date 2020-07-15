@@ -28,6 +28,7 @@ public class WebViewActivity extends AppCompatActivity
     private String url;
     private ProgressBar progressBar;
     public int pos=0;
+    public int progress;
     FetchAsyncTask fetchTask;
 
 
@@ -55,6 +56,9 @@ public class WebViewActivity extends AppCompatActivity
         urlTxt= (EditText)findViewById(R.id.urlTxt);
         gridView = (GridView)findViewById(R.id.gridView);
         imageView=(ImageView)findViewById(R.id.imageview);
+        progressBar = findViewById(R.id.progressBar);
+        progressBar.setMax(20);
+
 
         ImageAdapter imageAdapter = new ImageAdapter(this,images);
         gridView.setAdapter(imageAdapter);
@@ -62,6 +66,7 @@ public class WebViewActivity extends AppCompatActivity
 
         //set onCLickListeners
         if(btnFetch!=null){
+            progress=0;
             btnFetch.setOnClickListener(this);
         }
 
@@ -74,6 +79,8 @@ public class WebViewActivity extends AppCompatActivity
 
         if(id==R.id.btnFetch){
             url = urlTxt.getText().toString();
+            progressBar.setProgress(0);
+            progressBar.setVisibility(View.VISIBLE);
             startFetchTask();
         }
 
@@ -105,6 +112,7 @@ public class WebViewActivity extends AppCompatActivity
             ImageView currImg = (ImageView) gridElement.getChildAt(0);
             currImg.setImageBitmap(image.getBitmap());
             pos++;
+            progressBar.setProgress(pos*5);
             System.out.println(pos);
             if(pos>=NO_OF_IMAGES){
             pos=0;

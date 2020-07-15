@@ -24,8 +24,6 @@ public class ImageAdapter extends BaseAdapter {
         this.mContext = mContext;
         this.images = images;
         selectedImages = new ArrayList<>();
-        int openCount=1;
-        int currentId=0;
     }
 
     //return no. of cells to render
@@ -87,8 +85,14 @@ public class ImageAdapter extends BaseAdapter {
         selectedImages.add(image);
     }
 
-    public boolean match(int opened, int current){
+    public boolean match(ImageDTO image1, ImageDTO image2){
+        int opened=image1.getId();
+        int current=image2.getId();
         return (opened==current);
+    }
+
+    public void flip(){
+        //use position to set card to dummy
     }
 
     public void startGameActivity(){
