@@ -10,14 +10,12 @@
     <GridView
         android:id="@+id/gameGridView"
         android:layout_width="match_parent"
-        android:layout_height="500dp"
+        android:layout_height="match_parent"
         android:gravity="center"
         android:columnWidth="100dp"
         android:numColumns="3"
         android:verticalSpacing="0dip"
-        android:horizontalSpacing="0dip"
-        android:scrollbars="none"
-        android:fadeScrollbars="true"/>
+        android:horizontalSpacing="0dip"/>
 
 
 </LinearLayout>

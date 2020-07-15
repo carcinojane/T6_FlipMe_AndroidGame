@@ -2,6 +2,7 @@ package iss.workshop.flipMe;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.GridView;
 import android.widget.ImageView;
@@ -20,15 +21,14 @@ public class GameActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
 
-        //Instantiate ArrayList
-        selectedImages = new ArrayList<>();
-        for(int i=0; i<=12 ;i++){
-            selectedImages.add(new ImageDTO(null,null));
-        }
+        //get selected images
+        Intent intent = getIntent();
+        Bundle args = intent.getBundleExtra("BUNDLE");
+        selectedImages=(ArrayList<ImageDTO>)args.getSerializable("selected");
 
         //set image adapter to game gridView
         gridView = (GridView)findViewById(R.id.gameGridView);
-        imageView=(ImageView)findViewById(R.id.imageview);
+        imageView=(ImageView)findViewById(R.id.gameImageview);
         ImageAdapter imageAdapter = new ImageAdapter(this,selectedImages);
         gridView.setAdapter(imageAdapter);
         gridView.setVerticalScrollBarEnabled(false);

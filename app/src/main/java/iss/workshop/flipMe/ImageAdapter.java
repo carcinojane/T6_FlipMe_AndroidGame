@@ -1,32 +1,34 @@
 package iss.workshop.flipMe;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 public class ImageAdapter extends BaseAdapter {
-
     private final Context mContext;
     private final ArrayList<ImageDTO> images;
-    int selectedImage = 0;
+    private ArrayList<ImageDTO> selectedImages;
+
+
 
     public ImageAdapter(Context mContext, ArrayList<ImageDTO> images) {
         this.mContext = mContext;
         this.images = images;
+        selectedImages = new ArrayList<>();
     }
 
     //return no. of cells to render
     @Override
     public int getCount() {
-        if(images.size()>0){
-            return images.size();
-        }
-        return 0;
+        return(images.size()>0)? images.size():0;
     }
 
     @Override
@@ -54,7 +56,23 @@ public class ImageAdapter extends BaseAdapter {
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //store selected images
+                if(mContext instanceof WebViewActivity){
+                    //store selected images
+                    image.setId(image.getPos());
+                    selectedImages.add(image);
+                    if(selectedImages.size()==6){
+                        Intent intent  = new Intent(mContext,GameActivity.class);
+                        Bundle args = new Bundle();
+                        args.putSerializable("selected",(Serializable) selectedImages);
+                        intent.putExtra("BUNDLE",args);
+                        mContext.startActivity(intent);
+                }
+
+                }
+
+                if(mContext instanceof GameActivity){
+                    System.out.println(image.getId());
+                }
                 System.out.println(image.getPos());
 
                 //send selected images to game activity
