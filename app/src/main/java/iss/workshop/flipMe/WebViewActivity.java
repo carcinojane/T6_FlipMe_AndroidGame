@@ -27,6 +27,7 @@ public class WebViewActivity extends AppCompatActivity
     private ArrayList<ImageDTO> images;
     private String url;
     private ProgressBar progressBar;
+    private TextView progressTxt;
     public int pos=0;
     public int progress;
     FetchAsyncTask fetchTask;
@@ -34,7 +35,6 @@ public class WebViewActivity extends AppCompatActivity
 
     //UI Elements
     EditText urlTxt;
-    TextView progressTxt;
     GridView gridView;
     ImageView imageView;
 
@@ -56,7 +56,10 @@ public class WebViewActivity extends AppCompatActivity
         urlTxt= (EditText)findViewById(R.id.urlTxt);
         gridView = (GridView)findViewById(R.id.gridView);
         imageView=(ImageView)findViewById(R.id.imageview);
+
+        //progress bar
         progressBar = findViewById(R.id.progressBar);
+        progressTxt=findViewById(R.id.progressTxt);
         progressBar.setMax(20);
 
 
@@ -113,6 +116,7 @@ public class WebViewActivity extends AppCompatActivity
             currImg.setImageBitmap(image.getBitmap());
             pos++;
             progressBar.setProgress(pos*5);
+            progressTxt.setText((pos*5)+"%");
             System.out.println(pos);
             if(pos>=NO_OF_IMAGES){
             pos=0;
