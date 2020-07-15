@@ -6,6 +6,10 @@
     <string name="fetch">Fetch</string>
     <string name="fetch_prompt">Select fetch to download images</string>
     <string name="no_image_warning">No images found. Please try another Web page.</string>
-
     <string name="defaultURL">https://stocksnap.io</string>
+    <string name="score">Score</string>
+    <string name="timer">Time</string>
+    <string name="matches">Matches</string>
+    <string name="final_score">FINAL SCORE</string>
+    <string name="game_completed">Congratulation!</string>
 </resources>
