@@ -11,6 +11,7 @@ import android.widget.ImageView;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class ImageAdapter extends BaseAdapter {
     private final Context mContext;
@@ -23,6 +24,8 @@ public class ImageAdapter extends BaseAdapter {
         this.mContext = mContext;
         this.images = images;
         selectedImages = new ArrayList<>();
+        int openCount=1;
+        int currentId=0;
     }
 
     //return no. of cells to render
@@ -57,21 +60,17 @@ public class ImageAdapter extends BaseAdapter {
             @Override
             public void onClick(View view) {
                 if(mContext instanceof WebViewActivity){
-                    //store selected images
-                    image.setId(image.getPos());
-                    selectedImages.add(image);
-                    if(selectedImages.size()==6){
-                        Intent intent  = new Intent(mContext,GameActivity.class);
-                        Bundle args = new Bundle();
-                        args.putSerializable("selected",(Serializable) selectedImages);
-                        intent.putExtra("BUNDLE",args);
-                        mContext.startActivity(intent);
-                }
-
+                    //store 2 instance of each selected image
+                    System.out.println(image.getBitmap());
+                    addSelectedImages(image);
+                    if(selectedImages.size()==12){
+                        startGameActivity();
+                    }
                 }
 
                 if(mContext instanceof GameActivity){
                     System.out.println(image.getId());
+                    System.out.println(image.getBitmap());
                 }
                 System.out.println(image.getPos());
 
@@ -80,6 +79,25 @@ public class ImageAdapter extends BaseAdapter {
         });
 
         return view;
+    }
+
+    public void addSelectedImages(ImageDTO image){
+        image.setId(image.getPos());
+        selectedImages.add(image);
+        selectedImages.add(image);
+    }
+
+    public boolean match(int opened, int current){
+        return (opened==current);
+    }
+
+    public void startGameActivity(){
+        Collections.shuffle(selectedImages);
+        Intent intent  = new Intent(mContext,GameActivity.class);
+        Bundle args = new Bundle();
+        args.putSerializable("selected",(Serializable) selectedImages);
+        intent.putExtra("BUNDLE",args);
+        mContext.startActivity(intent);
     }
 
 }

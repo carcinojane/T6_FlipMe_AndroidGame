@@ -28,7 +28,7 @@ public class GameActivity extends AppCompatActivity {
 
         //set image adapter to game gridView
         gridView = (GridView)findViewById(R.id.gameGridView);
-        imageView=(ImageView)findViewById(R.id.gameImageview);
+        imageView=(ImageView)findViewById(R.id.imageview);
         ImageAdapter imageAdapter = new ImageAdapter(this,selectedImages);
         gridView.setAdapter(imageAdapter);
         gridView.setVerticalScrollBarEnabled(false);
