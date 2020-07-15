@@ -30,7 +30,7 @@ public class WebViewActivity extends AppCompatActivity
     private ProgressBar progressBar;
     public int pos=0;
     FetchAsyncTask fetchTask;
-    HashMap<Integer, Boolean> imageSelected;
+
 
     //UI Elements
     EditText urlTxt;
@@ -49,14 +49,12 @@ public class WebViewActivity extends AppCompatActivity
             images.add(new ImageDAO(null,null));
         }
 
-        imageSelected = new HashMap<>();
-
 
         //get UI Elements
         Button btnFetch = (Button)findViewById(R.id.btnFetch);
         progressTxt=(TextView) findViewById(R.id.progressTxt);
         urlTxt= (EditText)findViewById(R.id.urlTxt);
-        gridView = (GridView)findViewById(R.id.gridview);
+        gridView = (GridView)findViewById(R.id.gridView);
         imageView=(ImageView)findViewById(R.id.imageview);
 
         ImageAdapter imageAdapter = new ImageAdapter(this,images);
