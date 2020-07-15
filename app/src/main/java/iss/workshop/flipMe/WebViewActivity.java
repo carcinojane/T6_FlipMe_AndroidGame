@@ -18,14 +18,13 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class WebViewActivity extends AppCompatActivity
         implements View.OnClickListener, FetchAsyncTask.ICallback {
 
     //declare variables
     public static final int NO_OF_IMAGES = 20;
-    private ArrayList<ImageDAO> images;
+    private ArrayList<ImageDTO> images;
     private String url;
     private ProgressBar progressBar;
     public int pos=0;
@@ -46,7 +45,7 @@ public class WebViewActivity extends AppCompatActivity
         //instantiate variables
         images = new ArrayList<>();
         for(int i=0; i<=NO_OF_IMAGES ;i++){
-            images.add(new ImageDAO(null,null));
+            images.add(new ImageDTO(null,null));
         }
 
 
@@ -90,7 +89,7 @@ public class WebViewActivity extends AppCompatActivity
 
 
     @Override
-    public void AddImages(ImageDAO image) {
+    public void AddImages(ImageDTO image) {
         Message msg = new Message();
         msg.obj= image;
         mainHandler.sendMessage(msg);
@@ -99,8 +98,8 @@ public class WebViewActivity extends AppCompatActivity
     @SuppressLint("HandlerLeak")
     Handler mainHandler= new Handler(){
         public void handleMessage(@NonNull Message msg){
-            ImageDAO image = (ImageDAO)msg.obj;
-            System.out.println(pos);
+            ImageDTO image = (ImageDTO)msg.obj;
+            //System.out.println(pos);
 
             ViewGroup gridElement = (ViewGroup) gridView.getChildAt(pos);
             ImageView currImg = (ImageView) gridElement.getChildAt(0);

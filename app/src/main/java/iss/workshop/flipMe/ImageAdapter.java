@@ -12,9 +12,10 @@ import java.util.ArrayList;
 public class ImageAdapter extends BaseAdapter {
 
     private final Context mContext;
-    private final ArrayList<ImageDAO> images;
+    private final ArrayList<ImageDTO> images;
+    int selectedImage = 0;
 
-    public ImageAdapter(Context mContext, ArrayList<ImageDAO> images) {
+    public ImageAdapter(Context mContext, ArrayList<ImageDTO> images) {
         this.mContext = mContext;
         this.images = images;
     }
@@ -40,7 +41,7 @@ public class ImageAdapter extends BaseAdapter {
 
     //create cell for gridview
     public View getView(int pos, View view, ViewGroup parent) {
-        final ImageDAO image = images.get(pos);
+        final ImageDTO image = images.get(pos);
         image.setPos(pos);
         if (view == null) {
             final LayoutInflater layoutInflater = LayoutInflater.from(mContext);
@@ -53,7 +54,10 @@ public class ImageAdapter extends BaseAdapter {
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //store selected images
                 System.out.println(image.getPos());
+
+                //send selected images to game activity
             }
         });
 

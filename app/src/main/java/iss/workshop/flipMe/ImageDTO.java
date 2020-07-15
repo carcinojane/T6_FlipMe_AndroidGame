@@ -2,12 +2,15 @@ package iss.workshop.flipMe;
 
 import android.graphics.Bitmap;
 
-public class ImageDAO {
+import java.util.ArrayList;
+
+public class ImageDTO {
     private Bitmap bitmap;
     private String url;
     private int pos;
+    private ArrayList<ImageDTO> selectedImages;
 
-    public ImageDAO(Bitmap bitmap, String url) {
+    public ImageDTO(Bitmap bitmap, String url) {
         this.bitmap = bitmap;
         this.url = url;
     }

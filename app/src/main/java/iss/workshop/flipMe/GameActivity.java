@@ -7,13 +7,12 @@ import android.widget.GridView;
 import android.widget.ImageView;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class GameActivity extends AppCompatActivity {
 
     GridView gridView;
     ImageView imageView;
-    ArrayList<ImageDAO> selectedImages;
+    ArrayList<ImageDTO> selectedImages;
 
 
     @Override
@@ -21,10 +20,13 @@ public class GameActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
 
+        //Instantiate ArrayList
         selectedImages = new ArrayList<>();
-        for(int i=0; i<=6 ;i++){
-            selectedImages.add(new ImageDAO(null,null));
+        for(int i=0; i<=12 ;i++){
+            selectedImages.add(new ImageDTO(null,null));
         }
+
+        //set image adapter to game gridView
         gridView = (GridView)findViewById(R.id.gameGridView);
         imageView=(ImageView)findViewById(R.id.imageview);
         ImageAdapter imageAdapter = new ImageAdapter(this,selectedImages);
