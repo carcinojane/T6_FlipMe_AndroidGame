@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">WAD Android CA</string>
+    <string name="start">Start</string>
+    <string name="about">How to Play</string>
+    <string name="lBoard">Leader Board</string>
+    <string name="fetch">Fetch</string>
+    <string name="fetch_prompt">Select fetch to download images</string>
+    <string name="no_image_warning">No images found. Please try another Web page.</string>
+
+    <string name="defaultURL">https://stocksnap.io</string>
+</resources>
