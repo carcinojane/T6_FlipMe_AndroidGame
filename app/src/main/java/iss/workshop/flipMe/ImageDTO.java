@@ -3,7 +3,7 @@ package iss.workshop.flipMe;
 import android.graphics.Bitmap;
 
 import java.io.Serializable;
-import java.util.ArrayList;
+
 
 public class ImageDTO
         implements Serializable {

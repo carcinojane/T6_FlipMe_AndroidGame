@@ -31,6 +31,7 @@ public class WebViewActivity extends AppCompatActivity
     public int pos=0;
     public int progress;
     FetchAsyncTask fetchTask;
+    boolean isDownloading = false;
 
 
     //UI Elements
@@ -54,13 +55,12 @@ public class WebViewActivity extends AppCompatActivity
         Button btnFetch = (Button)findViewById(R.id.btnFetch);
         progressTxt=(TextView) findViewById(R.id.progressTxt);
         urlTxt= (EditText)findViewById(R.id.urlTxt);
-        gridView = (GridView)findViewById(R.id.gridView);
         imageView=(ImageView)findViewById(R.id.imageview);
 
         //progress bar
         progressBar = findViewById(R.id.progressBar);
         progressTxt=findViewById(R.id.progressTxt);
-        progressBar.setMax(20);
+        progressBar.setMax(100);
 
 
         ImageAdapter imageAdapter = new ImageAdapter(this,images);
@@ -69,7 +69,6 @@ public class WebViewActivity extends AppCompatActivity
 
         //set onCLickListeners
         if(btnFetch!=null){
-            progress=0;
             btnFetch.setOnClickListener(this);
         }
 
@@ -82,8 +81,8 @@ public class WebViewActivity extends AppCompatActivity
 
         if(id==R.id.btnFetch){
             url = urlTxt.getText().toString();
-            progressBar.setProgress(0);
             progressBar.setVisibility(View.VISIBLE);
+            progressBar.setProgress(0);
             startFetchTask();
         }
 
@@ -113,22 +112,26 @@ public class WebViewActivity extends AppCompatActivity
     Handler mainHandler= new Handler(){
         public void handleMessage(@NonNull Message msg){
             ImageDTO image = (ImageDTO)msg.obj;
-            //System.out.println(pos);
-
             ViewGroup gridElement = (ViewGroup) gridView.getChildAt(pos);
             ImageView currImg = (ImageView) gridElement.getChildAt(0);
             currImg.setImageBitmap(image.getBitmap());
             pos++;
-            progressBar.setProgress(pos*5);
-            progressTxt.setText((pos*5)+"%");
             System.out.println(pos);
             if(pos>=NO_OF_IMAGES){
             pos=0;
             }
+            progressBarHandler.sendMessage(progressBarHandler.obtainMessage());
         }
     };
 
-
+    @SuppressLint("HandlerLeak")
+    Handler progressBarHandler = new Handler(){
+      @Override
+      public void handleMessage(Message msg){
+          progressBar.incrementProgressBy(5);
+          progressTxt.setText(progressBar.getProgress()+"%");
+      }
+    };
 
 
     @Override
