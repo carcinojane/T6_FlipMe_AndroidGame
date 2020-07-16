@@ -207,8 +207,8 @@ public class WebViewActivity extends AppCompatActivity
                 if(Math.abs(valueY)>MIN_DISTANCE){
                     //detect left to right swipe
                     if (y1>y2){
-                        Intent intent = new Intent(this, MainActivity.class);
-                        startActivity(intent);
+                        super.finish();
+                        overridePendingTransition(R.anim.slide_in_bottom, R.anim.slide_in_bottom);
                         Log.d(TAG, "Top Swipe");
                     }
                 }
