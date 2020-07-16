@@ -11,7 +11,7 @@ public class LeaderBoardPlayers implements Comparable<LeaderBoardPlayers>{
     public LeaderBoardPlayers() {
     }
 
-    public LeaderBoardPlayers(String playerName, int score){
+    public LeaderBoardPlayers(String playerName, int playerScore){
         this.playerName = playerName;
         this.playerScore = playerScore;
     }
