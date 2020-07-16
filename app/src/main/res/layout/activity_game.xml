@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".GameActivity">
-    
+
     <LinearLayout
         android:baselineAligned="false"
         android:id="@+id/header"
@@ -73,9 +73,9 @@
                 android:gravity="top|center"/>
 
         </LinearLayout>
-        
+
     </LinearLayout>
-    
+
     <LinearLayout
         android:id="@+id/body"
         android:layout_width="match_parent"
@@ -95,7 +95,22 @@
             android:paddingLeft="15dp"
             android:paddingRight="15dp"
             android:paddingTop="15dp"
-            android:paddingBottom="15dp" />
+            android:paddingBottom="15dp">
+
+            <GridView
+                android:id="@+id/gameGridview"
+                android:layout_width="match_parent"
+                android:layout_height="500dp"
+                android:columnWidth="100dp"
+                android:fadeScrollbars="true"
+                android:gravity="center"
+                android:horizontalSpacing="0dip"
+                android:numColumns="auto_fit"
+                android:scrollbars="none"
+                android:verticalSpacing="0dip" />
+
+
+        </GridLayout>
     </LinearLayout>
 
 
