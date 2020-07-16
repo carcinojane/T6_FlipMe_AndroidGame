@@ -8,6 +8,7 @@ import android.widget.GridView;
 import android.widget.ImageView;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class GameActivity extends AppCompatActivity {
 
@@ -26,6 +27,7 @@ public class GameActivity extends AppCompatActivity {
         //get selected images
         Intent intent = getIntent();
         selectedIds= intent.getIntegerArrayListExtra("ImageIds");
+        Collections.shuffle(selectedIds);
         allImages=WebViewActivity.images;
 
         for(int selectedId:selectedIds){

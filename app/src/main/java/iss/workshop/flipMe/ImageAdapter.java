@@ -9,7 +9,6 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 
 import java.util.ArrayList;
-import java.util.Collections;
 
 public class ImageAdapter extends BaseAdapter {
     private final Context mContext;
@@ -51,15 +50,18 @@ public class ImageAdapter extends BaseAdapter {
 
         final ImageDTO image = images.get(pos);
         image.setPos(pos);
-        imageView.setImageBitmap(image.getBitmap());
+
 
         if(mContext instanceof WebViewActivity) {
+            imageView.setImageBitmap(image.getBitmap());
+            //imageView.setImageResource(R.drawable.dummy);
             imageIds = new ArrayList<>();
             imageView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     //store 2 instance of each selected image
                     addSelectedImages(image);
+                    System.out.println(image.getPos());
                     if (imageIds.size() == 12) {
                         startGameActivity();
                     }
@@ -68,10 +70,13 @@ public class ImageAdapter extends BaseAdapter {
         }
 
         if(mContext instanceof GameActivity){
+            imageView.setImageBitmap(image.getBitmap());
+            //imageView.setImageResource(R.drawable.dummy);
             imageView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     System.out.println(image.getId());
+                    System.out.println(image.getPos());
                     System.out.println(image.getBitmap());
                 }
             });
@@ -89,10 +94,12 @@ public class ImageAdapter extends BaseAdapter {
 
 
     public void startGameActivity(){
-        Collections.shuffle(imageIds);
+        //Collections.shuffle(imageIds);
         Intent intent  = new Intent(mContext,GameActivity.class);
         intent.putIntegerArrayListExtra("ImageIds",imageIds);
         mContext.startActivity(intent);
     }
+
+
 
 }
