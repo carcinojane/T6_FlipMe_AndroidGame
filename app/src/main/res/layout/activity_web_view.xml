@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/In_App_MintCream"
+    android:background="@drawable/background_gradient"
     android:orientation="vertical"
     tools:context=".WebViewActivity">
 
@@ -18,7 +18,7 @@
             android:id="@+id/urlTxt"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="2dp"
             android:layout_weight="0.99"
             android:background="@drawable/searchbar_transparent_gradient"
             android:drawableStart="@drawable/search_logo"
@@ -37,7 +37,7 @@
             android:layout_marginStart="5dp"
             android:layout_marginBottom="5dp"
             android:layout_weight="0.01"
-            android:background="@drawable/btn_rounded_greensheen"
+            android:background="@drawable/btn_rounded_asparagus"
             android:text="@string/fetch"
             android:textAlignment="center"
             android:textColor="@color/colorPrimary" />
