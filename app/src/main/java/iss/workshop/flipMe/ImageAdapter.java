@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -14,6 +15,10 @@ public class ImageAdapter extends BaseAdapter {
     private final Context mContext;
     private final ArrayList<ImageDTO> images;
     private  ArrayList<Integer> imageIds;
+    private ArrayList<Integer>imagePos;
+    private ImageDTO selectid1;
+    private ImageDTO selectid2;
+
 
 
 
@@ -56,26 +61,44 @@ public class ImageAdapter extends BaseAdapter {
             imageView.setImageBitmap(image.getBitmap());
             //imageView.setImageResource(R.drawable.dummy);
             imageIds = new ArrayList<>();
+            imagePos=new ArrayList<>();
             imageView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     //store 2 instance of each selected image
-                    addSelectedImages(image);
-                    System.out.println(image.getPos());
-                    if (imageIds.size() == 12) {
-                        startGameActivity();
+                    if(imagePos.contains(image.getPos()))
+                    {
+                        System.out.println("already clicked"+image.getPos());
+                        imagePos.remove(new Integer(image.getPos()));
+                        imageIds.remove(new Integer(image.getPos()));
+                        imageIds.remove(new Integer(image.getPos()));
+                        imageView.clearColorFilter();
                     }
+                    else{
+                        imagePos.add(image.getPos());
+                        System.out.println("Positions "+imagePos);
+                        addSelectedImages(image);
+                        System.out.println("Ids " +imageIds);
+                        imageView.setColorFilter(R.color.MintCream);
+                        System.out.println(image.getPos());
+                        if (imageIds.size() == 12) {
+                            startGameActivity();
+                        }}
                 }
             });
         }
 
+
         if(mContext instanceof GameActivity){
-            imageView.setImageBitmap(image.getBitmap());
-            //imageView.setImageResource(R.drawable.dummy);
+
+            //imageView.setImageBitmap(image.getBitmap());
+            TextView matches = view.findViewById(R.id.matchesTxt);
+            imageView.setImageResource(R.drawable.dummy);
             imageView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    System.out.println(image.getId());
+                    imageView.setImageBitmap(image.getBitmap());
+                    System.out.println("id "+image.getId());
                     System.out.println(image.getPos());
                     System.out.println(image.getBitmap());
                 }
@@ -87,6 +110,23 @@ public class ImageAdapter extends BaseAdapter {
 
     }
 
+    public boolean checkMatch(int id1, int id2){
+        return (id1==id2);
+    }
+
+    public void selectId(int id){
+        if(selectid1!=null && selectid2!=null){
+            if(selectid1.getBitmap()==selectid2.getBitmap()){
+
+            }
+        }
+        if(selectid1==null){
+
+
+        }
+
+    }
+
     public void addSelectedImages(ImageDTO image){
         imageIds.add(image.getId());
         imageIds.add(image.getId());
@@ -94,7 +134,6 @@ public class ImageAdapter extends BaseAdapter {
 
 
     public void startGameActivity(){
-        //Collections.shuffle(imageIds);
         Intent intent  = new Intent(mContext,GameActivity.class);
         intent.putIntegerArrayListExtra("ImageIds",imageIds);
         mContext.startActivity(intent);

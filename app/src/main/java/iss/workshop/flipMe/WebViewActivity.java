@@ -119,7 +119,7 @@ public class WebViewActivity extends AppCompatActivity
             Message msg = new Message();
             msg.obj = image;
             images.get(imageCount).setBitmap(image.getBitmap());
-            images.get(imageCount).setId(imageCount);
+            images.get(imageCount).setId(imageCount+1);
             allImages.add(image);
             imageCount++;
             mainHandler.sendMessage(msg);

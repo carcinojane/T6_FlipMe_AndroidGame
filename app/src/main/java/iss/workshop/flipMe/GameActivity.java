@@ -45,5 +45,7 @@ public class GameActivity extends AppCompatActivity {
         ImageAdapter imageAdapter = new ImageAdapter(this,selectedImages);
         gridView.setAdapter(imageAdapter);
         gridView.setVerticalScrollBarEnabled(false);
+
+
     }
 }
