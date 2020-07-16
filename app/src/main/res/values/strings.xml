@@ -12,7 +12,7 @@
     <string name="score">Score</string>
     <string name="timer">Time</string>
     <string name="matches">Matches</string>
-    <string name="pop_up_final_time">FINAL TIME</string>
+    <string name="pop_up_final_score">FINAL SCORE</string>
     <string name="game_completed">Congratulation!</string>
     <string name="leader_board_title">Leader Board</string>
     <string name="leader_board_table_header_rank">Rank</string>
