@@ -23,12 +23,9 @@ public class GameActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
 
-
-
         //get selected images
         Intent intent = getIntent();
-        //Bundle args = intent.getBundleExtra("BUNDLE");
-        selectedIds= intent.getIntegerArrayListExtra("BUNDLE");
+        selectedIds= intent.getIntegerArrayListExtra("imageIds");
         allImages=WebViewActivity.images;
 
         for(int selectedId:selectedIds){
@@ -39,8 +36,6 @@ public class GameActivity extends AppCompatActivity {
                 }
             }
         }
-
-        //selectedImages=intent.getParcelableArrayListExtra("BUNDLE");
 
         //set image adapter to game gridView
         gridView = (GridView)findViewById(R.id.gameGridview);
