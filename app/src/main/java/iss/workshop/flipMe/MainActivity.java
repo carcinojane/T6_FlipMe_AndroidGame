@@ -13,7 +13,7 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity
 implements View.OnClickListener {
     String url;
-    ArrayList<ImageDAO> images;
+    ArrayList<ImageDTO> images;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -13,6 +13,7 @@ public class GameActivity extends AppCompatActivity {
 
     GridView gridView;
     ImageView imageView;
+    ArrayList<ImageDTO> allImages;
     ArrayList<ImageDTO> selectedImages;
 
 
@@ -21,13 +22,15 @@ public class GameActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
 
+
+
         //get selected images
         Intent intent = getIntent();
         Bundle args = intent.getBundleExtra("BUNDLE");
         selectedImages=(ArrayList<ImageDTO>)args.getSerializable("selected");
 
         //set image adapter to game gridView
-        gridView = (GridView)findViewById(R.id.gameGridView);
+        gridView = (GridView)findViewById(R.id.gameGridview);
         imageView=(ImageView)findViewById(R.id.gameImageview);
         ImageAdapter imageAdapter = new ImageAdapter(this,selectedImages);
         gridView.setAdapter(imageAdapter);

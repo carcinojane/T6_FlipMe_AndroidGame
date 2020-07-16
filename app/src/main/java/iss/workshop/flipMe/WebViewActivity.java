@@ -25,13 +25,12 @@ public class WebViewActivity extends AppCompatActivity
     //declare variables
     public static final int NO_OF_IMAGES = 20;
     private ArrayList<ImageDTO> images;
+    private ArrayList<ImageDTO> allImages;
     private String url;
     private ProgressBar progressBar;
     private TextView progressTxt;
     public int pos=0;
-    public int progress;
     FetchAsyncTask fetchTask;
-    boolean isDownloading = false;
 
 
     //UI Elements
@@ -49,12 +48,14 @@ public class WebViewActivity extends AppCompatActivity
         for(int i=0; i<=NO_OF_IMAGES ;i++){
             images.add(new ImageDTO(null,null));
         }
+        allImages= new ArrayList<>();
 
 
         //get UI Elements
         Button btnFetch = (Button)findViewById(R.id.btnFetch);
         progressTxt=(TextView) findViewById(R.id.progressTxt);
         urlTxt= (EditText)findViewById(R.id.urlTxt);
+        gridView = (GridView)findViewById(R.id.gridview);
         imageView=(ImageView)findViewById(R.id.imageview);
 
         //progress bar
@@ -100,12 +101,19 @@ public class WebViewActivity extends AppCompatActivity
         fetchTask.execute(url);
     }
 
+    public ArrayList<ImageDTO> getAllImages(){
+        return allImages;
+    }
+
 
     @Override
     public void AddImages(ImageDTO image) {
-        Message msg = new Message();
-        msg.obj= image;
-        mainHandler.sendMessage(msg);
+        if(allImages.size()<NO_OF_IMAGES){
+            Message msg = new Message();
+            msg.obj= image;
+            allImages.add(image);
+            mainHandler.sendMessage(msg);
+        }
     }
 
     @SuppressLint("HandlerLeak")
@@ -127,9 +135,14 @@ public class WebViewActivity extends AppCompatActivity
     @SuppressLint("HandlerLeak")
     Handler progressBarHandler = new Handler(){
       @Override
-      public void handleMessage(Message msg){
+      public void handleMessage(@NonNull Message msg){
           progressBar.incrementProgressBy(5);
           progressTxt.setText(progressBar.getProgress()+"%");
+
+          if(progressBar.getProgress()==progressBar.getMax()){
+              progressBar.setVisibility(View.INVISIBLE);
+              progressTxt.setText("Pick 6 images");
+          }
       }
     };
 
