@@ -12,7 +12,7 @@ import java.util.HashSet;
 import java.util.Scanner;
 
 
-public class FetchAsyncTask extends AsyncTask<String, ImageDAO, Void> {
+public class FetchAsyncTask extends AsyncTask<String, ImageDTO, Void> {
     ICallback callback;
 
     public FetchAsyncTask(ICallback callback){
@@ -26,12 +26,12 @@ public class FetchAsyncTask extends AsyncTask<String, ImageDAO, Void> {
             if(this.callback != null) callback.makeToast("No images found. Please try another webpage.");
             return null;
         }
-        ArrayList<String> imgTags = getImgURLs(htmlText);
-        if(imgTags.size() < WebViewActivity.NO_OF_IMAGES){
+        ArrayList<String> imgURLs = getImgURLs(htmlText);
+        if(imgURLs.size() < WebViewActivity.NO_OF_IMAGES){
             if(this.callback != null) callback.makeToast("Insufficient images. Please try another search term.");
             return null;
         }
-        getBitmaps(imgTags);
+        getBitmaps(imgURLs);
         return null;
     }
 
@@ -110,13 +110,13 @@ public class FetchAsyncTask extends AsyncTask<String, ImageDAO, Void> {
         if(connection.getResponseCode() == 200) {
             InputStream inputStream = connection.getInputStream();
             Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
-            publishProgress(new ImageDAO(bitmap, url.toString()));
+            publishProgress(new ImageDTO(bitmap, url.toString()));
         }
         connection.disconnect();
     }
 
     @Override
-    protected void onProgressUpdate(ImageDAO... images){
+    protected void onProgressUpdate(ImageDTO... images){
         if(this.callback != null){
             this.callback.AddImages(images[0]);
         }
@@ -127,7 +127,7 @@ public class FetchAsyncTask extends AsyncTask<String, ImageDAO, Void> {
     }
 
     public interface ICallback{
-        void AddImages(ImageDAO image);
+        void AddImages(ImageDTO image);
         void makeToast(String message);
     }
 }

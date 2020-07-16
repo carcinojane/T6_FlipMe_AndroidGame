@@ -1,31 +1,35 @@
 package iss.workshop.flipMe;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class ImageAdapter extends BaseAdapter {
-
     private final Context mContext;
-    private final ArrayList<ImageDAO> images;
+    private final ArrayList<ImageDTO> images;
+    private ArrayList<ImageDTO> selectedImages;
 
-    public ImageAdapter(Context mContext, ArrayList<ImageDAO> images) {
+
+
+    public ImageAdapter(Context mContext, ArrayList<ImageDTO> images) {
         this.mContext = mContext;
         this.images = images;
+        selectedImages = new ArrayList<>();
     }
 
     //return no. of cells to render
     @Override
     public int getCount() {
-        if(images.size()>0){
-            return images.size();
-        }
-        return 0;
+        return(images.size()>0)? images.size():0;
     }
 
     @Override
@@ -40,7 +44,7 @@ public class ImageAdapter extends BaseAdapter {
 
     //create cell for gridview
     public View getView(int pos, View view, ViewGroup parent) {
-        final ImageDAO image = images.get(pos);
+        final ImageDTO image = images.get(pos);
         image.setPos(pos);
         if (view == null) {
             final LayoutInflater layoutInflater = LayoutInflater.from(mContext);
@@ -53,11 +57,51 @@ public class ImageAdapter extends BaseAdapter {
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(mContext instanceof WebViewActivity){
+                    //store 2 instance of each selected image
+                    System.out.println(image.getBitmap());
+                    addSelectedImages(image);
+                    if(selectedImages.size()==12){
+                        startGameActivity();
+                    }
+                }
+
+                if(mContext instanceof GameActivity){
+                    System.out.println(image.getId());
+                    System.out.println(image.getBitmap());
+                }
                 System.out.println(image.getPos());
+
+                //send selected images to game activity
             }
         });
 
         return view;
+    }
+
+    public void addSelectedImages(ImageDTO image){
+        image.setId(image.getPos());
+        selectedImages.add(image);
+        selectedImages.add(image);
+    }
+
+    public boolean match(ImageDTO image1, ImageDTO image2){
+        int opened=image1.getId();
+        int current=image2.getId();
+        return (opened==current);
+    }
+
+    public void flip(){
+        //use position to set card to dummy
+    }
+
+    public void startGameActivity(){
+        Collections.shuffle(selectedImages);
+        Intent intent  = new Intent(mContext,GameActivity.class);
+        Bundle args = new Bundle();
+        args.putSerializable("selected",(Serializable) selectedImages);
+        intent.putExtra("BUNDLE",args);
+        mContext.startActivity(intent);
     }
 
 }

@@ -18,23 +18,23 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class WebViewActivity extends AppCompatActivity
         implements View.OnClickListener, FetchAsyncTask.ICallback {
 
     //declare variables
     public static final int NO_OF_IMAGES = 20;
-    private ArrayList<ImageDAO> images;
+    private ArrayList<ImageDTO> images;
+    private ArrayList<ImageDTO> allImages;
     private String url;
     private ProgressBar progressBar;
+    private TextView progressTxt;
     public int pos=0;
     FetchAsyncTask fetchTask;
-    HashMap<Integer, Boolean> imageSelected;
+
 
     //UI Elements
     EditText urlTxt;
-    TextView progressTxt;
     GridView gridView;
     ImageView imageView;
 
@@ -46,10 +46,9 @@ public class WebViewActivity extends AppCompatActivity
         //instantiate variables
         images = new ArrayList<>();
         for(int i=0; i<=NO_OF_IMAGES ;i++){
-            images.add(new ImageDAO(null,null));
+            images.add(new ImageDTO(null,null));
         }
-
-        imageSelected = new HashMap<>();
+        allImages= new ArrayList<>();
 
 
         //get UI Elements
@@ -58,6 +57,12 @@ public class WebViewActivity extends AppCompatActivity
         urlTxt= (EditText)findViewById(R.id.urlTxt);
         gridView = (GridView)findViewById(R.id.gridview);
         imageView=(ImageView)findViewById(R.id.imageview);
+
+        //progress bar
+        progressBar = findViewById(R.id.progressBar);
+        progressTxt=findViewById(R.id.progressTxt);
+        progressBar.setMax(100);
+
 
         ImageAdapter imageAdapter = new ImageAdapter(this,images);
         gridView.setAdapter(imageAdapter);
@@ -77,7 +82,13 @@ public class WebViewActivity extends AppCompatActivity
 
         if(id==R.id.btnFetch){
             url = urlTxt.getText().toString();
+            progressBar.setVisibility(View.VISIBLE);
+            progressBar.setProgress(0);
             startFetchTask();
+        }
+
+        if(id==R.id.urlTxt){
+            fetchTask.cancel(true);
         }
 
     }
@@ -90,20 +101,25 @@ public class WebViewActivity extends AppCompatActivity
         fetchTask.execute(url);
     }
 
+    public ArrayList<ImageDTO> getAllImages(){
+        return allImages;
+    }
+
 
     @Override
-    public void AddImages(ImageDAO image) {
-        Message msg = new Message();
-        msg.obj= image;
-        mainHandler.sendMessage(msg);
+    public void AddImages(ImageDTO image) {
+        if(allImages.size()<NO_OF_IMAGES){
+            Message msg = new Message();
+            msg.obj= image;
+            allImages.add(image);
+            mainHandler.sendMessage(msg);
+        }
     }
 
     @SuppressLint("HandlerLeak")
     Handler mainHandler= new Handler(){
         public void handleMessage(@NonNull Message msg){
-            ImageDAO image = (ImageDAO)msg.obj;
-            System.out.println(pos);
-
+            ImageDTO image = (ImageDTO)msg.obj;
             ViewGroup gridElement = (ViewGroup) gridView.getChildAt(pos);
             ImageView currImg = (ImageView) gridElement.getChildAt(0);
             currImg.setImageBitmap(image.getBitmap());
@@ -112,10 +128,23 @@ public class WebViewActivity extends AppCompatActivity
             if(pos>=NO_OF_IMAGES){
             pos=0;
             }
+            progressBarHandler.sendMessage(progressBarHandler.obtainMessage());
         }
     };
 
+    @SuppressLint("HandlerLeak")
+    Handler progressBarHandler = new Handler(){
+      @Override
+      public void handleMessage(@NonNull Message msg){
+          progressBar.incrementProgressBy(5);
+          progressTxt.setText(progressBar.getProgress()+"%");
 
+          if(progressBar.getProgress()==progressBar.getMax()){
+              progressBar.setVisibility(View.INVISIBLE);
+              progressTxt.setText("Pick 6 images");
+          }
+      }
+    };
 
 
     @Override

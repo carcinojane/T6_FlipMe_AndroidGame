@@ -12,6 +12,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.GridView;
+import android.widget.ImageView;
+
+import java.util.ArrayList;
+
 
 public class GameActivity extends AppCompatActivity
     implements View.OnClickListener{
@@ -21,10 +26,28 @@ public class GameActivity extends AppCompatActivity
     EditText playerName;
     AlertDialog popUpBox;
 
+    GridView gridView;
+    ImageView imageView;
+    ArrayList<ImageDTO> allImages;
+    ArrayList<ImageDTO> selectedImages;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
+        
+        //get selected images
+        Intent intent = getIntent();
+        Bundle args = intent.getBundleExtra("BUNDLE");
+        selectedImages=(ArrayList<ImageDTO>)args.getSerializable("selected");
+
+        //set image adapter to game gridView
+        gridView = (GridView)findViewById(R.id.gameGridview);
+        imageView=(ImageView)findViewById(R.id.gameImageview);
+        ImageAdapter imageAdapter = new ImageAdapter(this,selectedImages);
+        gridView.setAdapter(imageAdapter);
+        gridView.setVerticalScrollBarEnabled(false);
 
         startTimer();
     }
@@ -104,5 +127,6 @@ public class GameActivity extends AppCompatActivity
 
 
         popUpBox.show();
+
     }
 }
