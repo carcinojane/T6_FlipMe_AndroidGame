@@ -9,4 +9,14 @@
     <string name="fetch_prompt">Select fetch to download images</string>
     <string name="no_image_warning">No images found. Please try another Web page.</string>
     <string name="defaultURL">https://stocksnap.io</string>
+    <string name="score">Score</string>
+    <string name="timer">Time</string>
+    <string name="matches">Matches</string>
+    <string name="pop_up_final_score">FINAL SCORE</string>
+    <string name="game_completed">Congratulation!</string>
+    <string name="leader_board_title">Leader Board</string>
+    <string name="leader_board_table_header_rank">Rank</string>
+    <string name="leader_board_table_header_name">Name</string>
+    <string name="leader_board_table_header_score">Time</string>
+    <string name="leader_board_back_btn">Back</string>
 </resources>
