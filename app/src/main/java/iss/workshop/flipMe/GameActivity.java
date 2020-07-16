@@ -1,11 +1,9 @@
 package iss.workshop.flipMe;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
@@ -17,9 +15,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.GridView;
 import android.widget.ImageView;
-
-import com.google.gson.Gson;
-
 import java.util.ArrayList;
 
 import static android.content.SharedPreferences.*;
@@ -38,18 +33,28 @@ public class GameActivity extends AppCompatActivity
     GridView gridView;
     ImageView imageView;
     ArrayList<ImageDTO> allImages;
-    ArrayList<ImageDTO> selectedImages;
+    ArrayList<ImageDTO> selectedImages = new ArrayList<>();
+    ArrayList<Integer> selectedIds;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
-        
+
         //get selected images
         Intent intent = getIntent();
-        Bundle args = intent.getBundleExtra("BUNDLE");
-        selectedImages=(ArrayList<ImageDTO>)args.getSerializable("selected");
+        selectedIds= intent.getIntegerArrayListExtra("ImageIds");
+        allImages=WebViewActivity.images;
+
+        for(int selectedId:selectedIds){
+            for(ImageDTO image:allImages){
+                int id = image.getId();
+                if(id==selectedId){
+                    selectedImages.add(image);
+                }
+            }
+        }
 
         //set image adapter to game gridView
         gridView = (GridView)findViewById(R.id.gameGridview);
@@ -57,6 +62,7 @@ public class GameActivity extends AppCompatActivity
         ImageAdapter imageAdapter = new ImageAdapter(this,selectedImages);
         gridView.setAdapter(imageAdapter);
         gridView.setVerticalScrollBarEnabled(false);
+
 
         popUpDialogue();
 
@@ -93,8 +99,8 @@ public class GameActivity extends AppCompatActivity
         }
     }
 
-    private void startTimer(){
-        final TextView timer = findViewById(R.id.timer);
+//     private void startTimer(){
+//         final TextView timer = findViewById(R.id.timer);
 //        final Handler timerHandler = new Handler();
 //        timerHandler.post(new Runnable() {
 //            @Override
@@ -106,19 +112,19 @@ public class GameActivity extends AppCompatActivity
 //                timerHandler.postDelayed(this, 500);
 //            }
 //        });
-        countDownTimer = new CountDownTimer(60000, 1000){
-            public void onTick(long millisUntilFinished){
-                int minutes = (int) millisUntilFinished/6000;
-                int seconds = (int) (millisUntilFinished/6000)/1000;
-                timer.setText(String.format("%d:%2d", minutes,seconds));
-                remainder = millisUntilFinished;
-            }
-            public void onFinish(){
-                stopGame();
+//         countDownTimer = new CountDownTimer(60000, 1000){
+//             public void onTick(long millisUntilFinished){
+//                 int minutes = (int) millisUntilFinished/6000;
+//                 int seconds = (int) (millisUntilFinished/6000)/1000;
+//                 timer.setText(String.format("%d:%2d", minutes,seconds));
+//                 remainder = millisUntilFinished;
+//             }
+//             public void onFinish(){
+//                 stopGame();
 
-            }
-        }.start();
-    }
+//             }
+//         }.start();
+//     }
 
     private void totalScore(){
         score = (int) remainder /100;

@@ -37,12 +37,10 @@ implements View.OnClickListener {
         if(id==R.id.btnStart) {
             //get images bitmap
 
-
-
             //image adapter
             Intent intent = new Intent(this, WebViewActivity.class);
             startActivity(intent);
-
+            overridePendingTransition(R.anim.slide_in_top,R.anim.slide_in_top);
         }
 
     }
