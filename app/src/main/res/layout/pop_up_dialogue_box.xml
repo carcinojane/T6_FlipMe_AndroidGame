@@ -20,7 +20,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/final_score"
+            android:text="@string/pop_up_final_time"
             android:textAlignment="center"
             android:textSize="22sp" />
 
@@ -41,7 +41,7 @@
         android:textAlignment="center"
         android:gravity="center"
         android:textSize="18sp"
-        android:text="Please enter your name:"
+        android:hint="Please enter your name"
         />
 
     <EditText
