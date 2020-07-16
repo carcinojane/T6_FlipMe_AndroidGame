@@ -24,13 +24,14 @@ public class WebViewActivity extends AppCompatActivity
 
     //declare variables
     public static final int NO_OF_IMAGES = 20;
-    private ArrayList<ImageDTO> images;
+    public static ArrayList<ImageDTO> images;
     private ArrayList<ImageDTO> allImages;
     private String url;
     private ProgressBar progressBar;
     private TextView progressTxt;
     public int pos=0;
     FetchAsyncTask fetchTask;
+    int imageCount =0;
 
 
     //UI Elements
@@ -45,7 +46,7 @@ public class WebViewActivity extends AppCompatActivity
 
         //instantiate variables
         images = new ArrayList<>();
-        for(int i=0; i<=NO_OF_IMAGES ;i++){
+        for(int i=0; i<NO_OF_IMAGES ;i++){
             images.add(new ImageDTO(null,null));
         }
         allImages= new ArrayList<>();
@@ -61,7 +62,8 @@ public class WebViewActivity extends AppCompatActivity
         //progress bar
         progressBar = findViewById(R.id.progressBar);
         progressTxt=findViewById(R.id.progressTxt);
-        progressBar.setMax(100);
+        //progressBar.setMax(100);
+        progressBar.setMax(20);
 
 
         ImageAdapter imageAdapter = new ImageAdapter(this,images);
@@ -79,16 +81,16 @@ public class WebViewActivity extends AppCompatActivity
     @Override
     public void onClick(View view) {
         int id = view.getId();
-
         if(id==R.id.btnFetch){
             url = urlTxt.getText().toString();
-            progressBar.setVisibility(View.VISIBLE);
-            progressBar.setProgress(0);
+            clearImages();
             startFetchTask();
         }
 
         if(id==R.id.urlTxt){
-            fetchTask.cancel(true);
+            if(fetchTask != null){
+                fetchTask.cancel(true);
+            }
         }
 
     }
@@ -101,19 +103,25 @@ public class WebViewActivity extends AppCompatActivity
         fetchTask.execute(url);
     }
 
-    public ArrayList<ImageDTO> getAllImages(){
-        return allImages;
-    }
-
-
     @Override
     public void AddImages(ImageDTO image) {
-        if(allImages.size()<NO_OF_IMAGES){
+        if(imageCount<images.size()) {
             Message msg = new Message();
-            msg.obj= image;
+            msg.obj = image;
+            images.get(imageCount).setBitmap(image.getBitmap());
+            images.get(imageCount).setId(imageCount);
             allImages.add(image);
+            imageCount++;
             mainHandler.sendMessage(msg);
         }
+    }
+
+    public void clearImages(){
+        allImages.clear();
+        imageCount=0;
+        progressBar.setVisibility(View.VISIBLE);
+        progressBar.setProgress(0);
+        //mainHandler.removeCallbacksAndMessages(null);
     }
 
     @SuppressLint("HandlerLeak")
@@ -136,8 +144,8 @@ public class WebViewActivity extends AppCompatActivity
     Handler progressBarHandler = new Handler(){
       @Override
       public void handleMessage(@NonNull Message msg){
-          progressBar.incrementProgressBy(5);
-          progressTxt.setText(progressBar.getProgress()+"%");
+          progressBar.incrementProgressBy(1);
+          progressTxt.setText("downloading "+progressBar.getProgress()+"/"+ progressBar.getMax());
 
           if(progressBar.getProgress()==progressBar.getMax()){
               progressBar.setVisibility(View.INVISIBLE);

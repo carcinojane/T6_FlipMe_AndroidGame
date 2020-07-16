@@ -14,7 +14,8 @@ public class GameActivity extends AppCompatActivity {
     GridView gridView;
     ImageView imageView;
     ArrayList<ImageDTO> allImages;
-    ArrayList<ImageDTO> selectedImages;
+    ArrayList<ImageDTO> selectedImages = new ArrayList<>();
+    ArrayList<Integer> selectedIds;
 
 
     @Override
@@ -26,8 +27,20 @@ public class GameActivity extends AppCompatActivity {
 
         //get selected images
         Intent intent = getIntent();
-        Bundle args = intent.getBundleExtra("BUNDLE");
-        selectedImages=(ArrayList<ImageDTO>)args.getSerializable("selected");
+        //Bundle args = intent.getBundleExtra("BUNDLE");
+        selectedIds= intent.getIntegerArrayListExtra("BUNDLE");
+        allImages=WebViewActivity.images;
+
+        for(int selectedId:selectedIds){
+            for(ImageDTO image:allImages){
+                int id = image.getId();
+                if(id==selectedId){
+                    selectedImages.add(image);
+                }
+            }
+        }
+
+        //selectedImages=intent.getParcelableArrayListExtra("BUNDLE");
 
         //set image adapter to game gridView
         gridView = (GridView)findViewById(R.id.gameGridview);
