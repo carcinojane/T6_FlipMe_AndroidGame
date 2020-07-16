@@ -25,7 +25,7 @@ public class GameActivity extends AppCompatActivity {
 
         //get selected images
         Intent intent = getIntent();
-        selectedIds= intent.getIntegerArrayListExtra("imageIds");
+        selectedIds= intent.getIntegerArrayListExtra("ImageIds");
         allImages=WebViewActivity.images;
 
         for(int selectedId:selectedIds){
