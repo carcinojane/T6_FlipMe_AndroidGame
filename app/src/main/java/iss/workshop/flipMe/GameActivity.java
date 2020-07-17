@@ -9,6 +9,8 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -103,11 +105,6 @@ public class GameActivity extends AppCompatActivity
         int id = view.getId();
 
         if(id==R.id.submitBtn) {
-
-//            if(playerName.getText().toString().isEmpty()){
-//                playerName.findFocus();
-//                playerName.setError("Name is mandatory");
-//            }
 
             pref = getSharedPreferences("players", MODE_PRIVATE);
             editor = pref.edit();
@@ -228,14 +225,41 @@ public class GameActivity extends AppCompatActivity
         TextView finalScore = popUp.findViewById(R.id.score);
         finalScore.setText(String.valueOf(score));
 
-        //get player name;
-        playerName =(EditText) popUp.findViewById(R.id.nameTxt);
-
         //submit button
-        Button submitName = popUp.findViewById(R.id.submitBtn);
+        final Button submitName = popUp.findViewById(R.id.submitBtn);
         if (submitName != null) {
             submitName.setOnClickListener(this);
+            submitName.setEnabled(false);
         }
+
+        //get player name;
+        playerName =(EditText) popUp.findViewById(R.id.nameTxt);
+        playerName.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if(playerName.getText().toString().length()==0){
+                    submitName.setEnabled(false);
+                }else {
+                    submitName.setEnabled(true);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if(playerName.getText().toString().length()==0){
+                    submitName.setEnabled(false);
+                }else {
+                    submitName.setEnabled(true);
+                }
+
+            }
+        });
+
 
         popUpBox.show();
 
