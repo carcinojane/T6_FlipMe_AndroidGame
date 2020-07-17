@@ -42,6 +42,7 @@ public class WebViewActivity extends AppCompatActivity
     private static int MIN_DISTANCE = 150;
     private GestureDetector gestureDetector;
     private ArrayList<Integer> selectedIds = new ArrayList<>();
+    private boolean isFetchButtonClicked=false;
 
     //UI Elements
     EditText urlTxt;
@@ -94,6 +95,7 @@ public class WebViewActivity extends AppCompatActivity
 
     @Override
     public void onClick(View view) {
+        isFetchButtonClicked=true;
         int id = view.getId();
         if(id==R.id.btnFetch){
             url = urlTxt.getText().toString();
@@ -148,7 +150,7 @@ public class WebViewActivity extends AppCompatActivity
             pos++;
             System.out.println(pos);
             if(pos>=NO_OF_IMAGES){
-            pos=0;
+                pos=0;
             }
             progressBarHandler.sendMessage(progressBarHandler.obtainMessage());
         }
@@ -156,16 +158,16 @@ public class WebViewActivity extends AppCompatActivity
 
     @SuppressLint("HandlerLeak")
     Handler progressBarHandler = new Handler(){
-      @Override
-      public void handleMessage(@NonNull Message msg){
-          progressBar.incrementProgressBy(1);
-          progressTxt.setText("downloading "+progressBar.getProgress()+"/"+ progressBar.getMax());
+        @Override
+        public void handleMessage(@NonNull Message msg){
+            progressBar.incrementProgressBy(1);
+            progressTxt.setText("downloading "+progressBar.getProgress()+"/"+ progressBar.getMax());
 
-          if(progressBar.getProgress()==progressBar.getMax()){
-              progressBar.setVisibility(View.INVISIBLE);
-              progressTxt.setText("Pick 6 images");
-          }
-      }
+            if(progressBar.getProgress()==progressBar.getMax()){
+                progressBar.setVisibility(View.INVISIBLE);
+                progressTxt.setText("Pick 6 images");
+            }
+        }
     };
 
 
@@ -253,27 +255,27 @@ public class WebViewActivity extends AppCompatActivity
 
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-        ImageView imageView= view.findViewById(R.id.imageview);
-        ImageDTO image = images.get(i);
-        int imageId=image.getId();
+        ViewGroup gridElement = (ViewGroup) gridView.getChildAt(i);
+        ImageView currImg = (ImageView) gridElement.getChildAt(0);
+        int imageId=currImg.getId();
         System.out.println(imageId);
-        //if(imageId!=0){ --> need to add some check here else before fetch happens these on click will run
-        if(selectedIds.contains(imageId)){
-            selectedIds.remove(new Integer(imageId));
-            selectedIds.remove(new Integer(imageId));
-            imageView.clearColorFilter();;
-        }
-        else{
-            selectedIds.add(imageId);
-            selectedIds.add(imageId);
-            imageView.setColorFilter(R.color.MintCream);
-            if(selectedIds.size()==12){
-                startGameActivity();
+        if(isFetchButtonClicked){
+            if(selectedIds.contains(imageId)){
+                selectedIds.remove(new Integer(imageId));
+                selectedIds.remove(new Integer(imageId));
+                currImg.clearColorFilter();;
             }
-        }
-        progressTxt.setText(selectedIds.size()/2+"/6 images selected");
+            else{
+                selectedIds.add(imageId);
+                selectedIds.add(imageId);
+                currImg.setColorFilter(R.color.MintCream);
+                if(selectedIds.size()==12){
+                    startGameActivity();
+                }
+            }
+            progressTxt.setText(selectedIds.size()/2+"/6 images selected");
 
-        //}
+        }
 
     }
 }
