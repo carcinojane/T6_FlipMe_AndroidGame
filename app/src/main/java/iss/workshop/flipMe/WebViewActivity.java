@@ -42,6 +42,7 @@ public class WebViewActivity extends AppCompatActivity
     private static int MIN_DISTANCE = 150;
     private GestureDetector gestureDetector;
     private ArrayList<Integer> selectedIds = new ArrayList<>();
+    private boolean isFetchButtonClicked=false;
 
     //UI Elements
     EditText urlTxt;
@@ -94,6 +95,7 @@ public class WebViewActivity extends AppCompatActivity
 
     @Override
     public void onClick(View view) {
+        isFetchButtonClicked=true;
         int id = view.getId();
         if(id==R.id.btnFetch){
             url = urlTxt.getText().toString();
@@ -257,7 +259,7 @@ public class WebViewActivity extends AppCompatActivity
         ImageDTO image = images.get(i);
         int imageId=image.getId();
         System.out.println(imageId);
-        //if(imageId!=0){ --> need to add some check here else before fetch happens these on click will run
+        if(isFetchButtonClicked){
         if(selectedIds.contains(imageId)){
             selectedIds.remove(new Integer(imageId));
             selectedIds.remove(new Integer(imageId));
@@ -273,7 +275,7 @@ public class WebViewActivity extends AppCompatActivity
         }
         progressTxt.setText(selectedIds.size()/2+"/6 images selected");
 
-        //}
+        }
 
     }
 }

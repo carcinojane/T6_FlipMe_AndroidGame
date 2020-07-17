@@ -39,6 +39,7 @@ public class LeaderBoardAdapter extends ArrayAdapter {
 
         if(convertView == null){
             convertView = inflater.inflate(R.layout.leader_board_list_item, null);
+            convertView.setOnClickListener(null);
             holder = new viewHolder();
             holder.rankView = (TextView) convertView.findViewById(R.id.itemRank);
             holder.nameView = (TextView) convertView.findViewById(R.id.itemName);
