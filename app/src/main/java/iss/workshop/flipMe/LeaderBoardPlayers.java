@@ -42,12 +42,10 @@ public class LeaderBoardPlayers implements Comparable<LeaderBoardPlayers>{
 
     @Override
     public int compareTo(LeaderBoardPlayers other) {
-        if(this.playerScore > other.playerScore){
+        if(this.playerScore < other.playerScore){
             return 1;
-        } else if (other.playerScore > this.playerScore){
+        }  else {
             return -1;
-        } else {
-            return 0;
         }
     }
 }

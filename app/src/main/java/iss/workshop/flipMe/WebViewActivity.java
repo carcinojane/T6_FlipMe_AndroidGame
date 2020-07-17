@@ -13,6 +13,7 @@ import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
@@ -23,7 +24,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 public class WebViewActivity extends AppCompatActivity
-        implements View.OnClickListener, FetchAsyncTask.ICallback, GestureDetector.OnGestureListener {
+        implements View.OnClickListener, FetchAsyncTask.ICallback, GestureDetector.OnGestureListener, AdapterView.OnItemClickListener {
 
     //declare variables
     public static final int NO_OF_IMAGES = 20;
@@ -40,6 +41,7 @@ public class WebViewActivity extends AppCompatActivity
     private float x1, x2, y1, y2;
     private static int MIN_DISTANCE = 150;
     private GestureDetector gestureDetector;
+    private ArrayList<Integer> selectedIds = new ArrayList<>();
 
     //UI Elements
     EditText urlTxt;
@@ -67,7 +69,8 @@ public class WebViewActivity extends AppCompatActivity
         progressTxt=(TextView) findViewById(R.id.progressTxt);
         urlTxt= (EditText)findViewById(R.id.urlTxt);
         gridView = (GridView)findViewById(R.id.gridview);
-        imageView=(ImageView)findViewById(R.id.imageview);
+        //imageView=(ImageView)findViewById(R.id.imageview);
+        selectedIds.clear();
 
         //progress bar
         progressBar = findViewById(R.id.progressBar);
@@ -78,6 +81,7 @@ public class WebViewActivity extends AppCompatActivity
 
         ImageAdapter imageAdapter = new ImageAdapter(this,images);
         gridView.setAdapter(imageAdapter);
+        gridView.setOnItemClickListener(this);
         gridView.setVerticalScrollBarEnabled(false);
 
         //set onCLickListeners
@@ -119,7 +123,7 @@ public class WebViewActivity extends AppCompatActivity
             Message msg = new Message();
             msg.obj = image;
             images.get(imageCount).setBitmap(image.getBitmap());
-            images.get(imageCount).setId(imageCount+1);
+            images.get(imageCount).setId(imageCount);
             allImages.add(image);
             imageCount++;
             mainHandler.sendMessage(msg);
@@ -179,6 +183,7 @@ public class WebViewActivity extends AppCompatActivity
 
     public void startGameActivity(){
         Intent intent= new Intent(this,GameActivity.class);
+        intent.putIntegerArrayListExtra("ImageIds",selectedIds);
         startActivity(intent);
     }
 
@@ -244,5 +249,31 @@ public class WebViewActivity extends AppCompatActivity
     @Override
     public boolean onFling(MotionEvent motionEvent, MotionEvent motionEvent1, float v, float v1) {
         return false;
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+        ImageView imageView= view.findViewById(R.id.imageview);
+        ImageDTO image = images.get(i);
+        int imageId=image.getId();
+        System.out.println(imageId);
+        //if(imageId!=0){ --> need to add some check here else before fetch happens these on click will run
+        if(selectedIds.contains(imageId)){
+            selectedIds.remove(new Integer(imageId));
+            selectedIds.remove(new Integer(imageId));
+            imageView.clearColorFilter();;
+        }
+        else{
+            selectedIds.add(imageId);
+            selectedIds.add(imageId);
+            imageView.setColorFilter(R.color.MintCream);
+            if(selectedIds.size()==12){
+                startGameActivity();
+            }
+        }
+        progressTxt.setText(selectedIds.size()/2+"/6 images selected");
+
+        //}
+
     }
 }

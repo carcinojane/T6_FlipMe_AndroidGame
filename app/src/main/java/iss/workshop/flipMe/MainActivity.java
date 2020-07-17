@@ -29,6 +29,11 @@ implements View.OnClickListener {
             btnStart.setOnClickListener(this);
         }
 
+        Button btnBoard = findViewById(R.id.btnLBoard);
+        if(btnBoard!=null){
+            btnBoard.setOnClickListener(this);
+        }
+
     }
 
     @Override
@@ -41,6 +46,11 @@ implements View.OnClickListener {
             Intent intent = new Intent(this, WebViewActivity.class);
             startActivity(intent);
             overridePendingTransition(R.anim.slide_in_top,R.anim.slide_in_top);
+        }
+
+        if(id==R.id.btnLBoard){
+            Intent intent = new Intent(this, LeaderBoardActivity.class);
+            startActivity(intent);
         }
 
     }
