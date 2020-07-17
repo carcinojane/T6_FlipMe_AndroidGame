@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">WAD Android CA</string>
     <string name="start">Start</string>
-    <string name="team6">Team-6™</string>
+    <string name="team6">Team-6</string>
     <string name="designDesc">Top Bar</string>
     <string name="about">How to Play</string>
     <string name="lBoard">Leader Board</string>

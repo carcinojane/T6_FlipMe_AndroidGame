@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background_gradient"
+    android:background="@drawable/background"
     android:orientation="vertical"
     tools:context=".WebViewActivity">
 
@@ -23,11 +23,12 @@
             android:background="@drawable/searchbar_transparent_gradient"
             android:drawableStart="@drawable/search_logo"
             android:drawablePadding="10dp"
-            android:gravity="bottom"
+            android:gravity="center_vertical"
             android:inputType="text"
             android:paddingStart="15dp"
             android:paddingEnd="15dp"
-            android:text="@string/defaultURL" />
+            android:text="@string/defaultURL"
+            android:textColor="@color/Rhythm" />
 
         <Button
             android:id="@+id/btnFetch"
@@ -37,10 +38,12 @@
             android:layout_marginStart="5dp"
             android:layout_marginBottom="5dp"
             android:layout_weight="0.01"
-            android:background="@drawable/btn_rounded_asparagus"
+            android:background="@drawable/btn_rounded_ticklemepink"
+            android:fontFamily="sans-serif"
             android:text="@string/fetch"
             android:textAlignment="center"
-            android:textColor="@color/colorPrimary" />
+            android:textColor="@color/White"
+            android:textSize="16sp" />
     </LinearLayout>
 
     <GridView
@@ -65,10 +68,9 @@
         android:layout_marginEnd="5dp"
         android:layout_weight="1"
         android:max="100"
+        android:paddingTop="10dp"
         android:progress="0"
-        android:progressBackgroundTint="@color/colorAccent"
         android:progressDrawable="@drawable/progressbar_states"
-        android:progressTint="@color/colorPrimaryDark"
         tools:visibility="visible" />
 
     <TextView
@@ -77,6 +79,8 @@
         android:layout_height="0dp"
         android:layout_gravity="center_horizontal"
         android:layout_weight="2"
+        android:fontFamily="@font/francois_one"
         android:text="@string/fetch_prompt"
+        android:textColor="@color/Rhythm"
         android:textSize="20sp" />
 </LinearLayout>
