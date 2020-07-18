@@ -11,21 +11,23 @@
         android:id="@+id/menuLogo"
         android:layout_width="wrap_content"
         android:layout_height="150dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="30dp"
         android:src="@drawable/logo"
+        app:layout_constraintBottom_toTopOf="@id/buttonPanel"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/buttonPanel"/>
+        app:layout_constraintTop_toTopOf="parent" />
+
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/buttonPanel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toTopOf="@id/footer"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/menuLogo">
 
         <Button
@@ -36,10 +38,10 @@
             android:fontFamily="@font/francois_one"
             android:text="@string/startEasy"
             android:textColor="@color/White"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/btnStartDifficult"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/btnStartDifficult"/>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <Button
             android:id="@+id/btnStartDifficult"
@@ -50,10 +52,10 @@
             android:fontFamily="@font/francois_one"
             android:text="@string/startDifficult"
             android:textColor="@color/White"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/btnLBoard"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btnStartEasy"
-            app:layout_constraintBottom_toTopOf="@id/btnLBoard"/>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btnStartEasy" />
 
         <Button
             android:id="@+id/btnLBoard"
@@ -64,10 +66,10 @@
             android:fontFamily="@font/francois_one"
             android:text="@string/lBoard"
             android:textColor="@color/White"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/btnAbout"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btnStartDifficult"
-            app:layout_constraintBottom_toTopOf="@id/btnAbout"/>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btnStartDifficult" />
 
         <Button
             android:id="@+id/btnAbout"
@@ -78,10 +80,10 @@
             android:fontFamily="@font/francois_one"
             android:text="@string/about"
             android:textColor="@color/White"
+            app:layout_constraintBottom_toBottomOf="@id/buttonPanel"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btnLBoard"
-            app:layout_constraintBottom_toBottomOf="@id/buttonPanel"/>
+            app:layout_constraintTop_toBottomOf="@id/btnLBoard" />
 
         <Button
             android:id="@+id/btnVid"
@@ -92,18 +94,17 @@
             android:fontFamily="@font/francois_one"
             android:text="@string/video"
             android:textColor="@color/White"
+            app:layout_constraintBottom_toBottomOf="@id/buttonPanel"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btnAbout"
-            app:layout_constraintBottom_toBottomOf="@id/buttonPanel"/>
+            app:layout_constraintTop_toBottomOf="@id/btnAbout" />
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 
     <ImageView
         android:id="@+id/footer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="0dp"
+        android:layout_marginTop="30dp"
         android:adjustViewBounds="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

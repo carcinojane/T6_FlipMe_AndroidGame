@@ -5,6 +5,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.GestureDetector;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
@@ -14,34 +17,26 @@ import java.util.Collections;
 import java.util.List;
 
 public class LeaderBoardActivity extends AppCompatActivity
-        implements View.OnClickListener{
+        implements GestureDetector.OnGestureListener{
+
+    private static final String TAG = "Swipe Position";
+    private float x1, x2, y1, y2;
+    private static int MIN_DISTANCE = 150;
+    private GestureDetector gestureDetector;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_leader_board);
 
+        //initialize gesture detector
+        this.gestureDetector = new GestureDetector(LeaderBoardActivity.this, this);
+
 //        SharedPreferences pref = getSharedPreferences("players",MODE_PRIVATE);
 //        pref.getString("name","");
 //        pref.getInt("score",0);
 
-        Button backBtn = findViewById(R.id.backBtn);
-        if(backBtn!=null){
-            backBtn.setOnClickListener(this);
-        }
-
         leaderBoardListing();
-
-    }
-
-    @Override
-    public void onClick(View view) {
-        int id = view.getId();
-
-        if(id == R.id.backBtn){
-            Intent intent = new Intent(LeaderBoardActivity.this, MainActivity.class);
-            startActivity(intent);
-        }
     }
 
     void leaderBoardListing(){
@@ -88,7 +83,68 @@ public class LeaderBoardActivity extends AppCompatActivity
 
     }
 
+    //override on touch event
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
 
+        gestureDetector.onTouchEvent(event);
+        switch (event.getAction()){
+            //starting to swipe time gesture
+            case MotionEvent.ACTION_DOWN:
+                x1 = event.getX();
+                y1 = event.getY();
+                break;
+            //ending time swipe gesture
+            case MotionEvent.ACTION_UP:
+                x2 = event.getX();
+                y2 = event.getY();
 
+                //getting value for horizontal swipe
+                float valueX = x2 - x1;
 
+                //getting value for vertical swipe
+                float valueY = y2 - y1;
+
+                if(Math.abs(valueY)>MIN_DISTANCE){
+                    //detect left to right swipe
+                    if (y1>y2){
+                        Intent intent = new Intent(this, MainActivity.class);
+                        startActivity(intent);
+                        overridePendingTransition(R.anim.slide_in_bottom, R.anim.slide_in_bottom);
+                        Log.d(TAG, "Top Swipe");
+                    }
+                }
+        }
+        return super.onTouchEvent(event);
+    }
+
+    @Override
+    public boolean onDown(MotionEvent motionEvent) {
+        return false;
+    }
+
+    @Override
+    public void onShowPress(MotionEvent motionEvent) {
+
+    }
+
+    @Override
+    public boolean onSingleTapUp(MotionEvent motionEvent) {
+        return false;
+    }
+
+    @Override
+    public boolean onScroll(MotionEvent motionEvent, MotionEvent motionEvent1, float v, float v1) {
+        return false;
+    }
+
+    @Override
+    public void onLongPress(MotionEvent motionEvent) {
+
+    }
+
+    @Override
+    public boolean onFling(MotionEvent motionEvent, MotionEvent motionEvent1, float v, float v1) {
+        return false;
+    }
 }
