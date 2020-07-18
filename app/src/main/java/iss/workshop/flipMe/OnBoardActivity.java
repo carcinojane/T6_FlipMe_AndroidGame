@@ -33,7 +33,7 @@ public class OnBoardActivity extends AppCompatActivity {
 
     public  void addDotsIndicator(int position){
        mDots=new TextView[sliderAdapter.getCount()];
-
+        mDotLayout.removeAllViews();;
        for(int i=0; i<mDots.length;i++){
            mDots[i]= new TextView(this);
            mDots[i].setText(Html.fromHtml("&#8226;"));
