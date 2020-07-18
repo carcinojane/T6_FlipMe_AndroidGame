@@ -221,8 +221,13 @@ public class GameActivity extends AppCompatActivity
     }
 
     private void totalScore(){
-        score = (int) remainder /100;
-        if(remainder < 0){
+        if(difficulty==6) {
+            score = (int) remainder / 100;
+        }
+        if(difficulty==10){
+            score = (int) remainder / 50;
+        }
+        if (remainder < 0) {
             score = 0;
         }
     }
