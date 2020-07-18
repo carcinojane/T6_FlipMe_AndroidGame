@@ -15,6 +15,7 @@
         <activity android:name=".GameActivity" />
         <activity android:name=".WebViewActivity" />
         <activity android:name=".MainActivity" />
+        <activity android:name=".OnBoardActivity" />
         <activity android:name=".SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

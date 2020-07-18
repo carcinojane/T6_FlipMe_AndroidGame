@@ -43,6 +43,11 @@ implements View.OnClickListener {
             btnBoard.setOnClickListener(this);
         }
 
+        Button btnAbout = findViewById(R.id.btnAbout);
+        if(btnAbout!=null){
+            btnAbout.setOnClickListener(this);
+        }
+
     }
 
 
@@ -75,6 +80,11 @@ implements View.OnClickListener {
 
         if(id==R.id.btnLBoard){
             Intent intent = new Intent(this, LeaderBoardActivity.class);
+            startActivity(intent);
+        }
+
+        if(id==R.id.btnAbout){
+            Intent intent = new Intent(this,OnBoardActivity.class);
             startActivity(intent);
         }
     }

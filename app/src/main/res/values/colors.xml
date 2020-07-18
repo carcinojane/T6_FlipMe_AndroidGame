@@ -7,4 +7,9 @@
     <color name="White">#FFFFFF</color>
     <color name="Rhythm">#7E7B8D</color>
     <color name="MacaroniAndCheese">#FFC085</color>
+    <color name="colorPrimary">#262938</color>
+    <color name="colorPrimaryDark">#181A24</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="colorWhite">#FFFFFF</color>
+    <color name="colorTransparentWhite">#cccccc</color>
 </resources>
