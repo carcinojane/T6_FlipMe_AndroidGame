@@ -268,7 +268,7 @@ public class WebViewActivity extends AppCompatActivity
         else{
             selectedIds.add(imageId);
             selectedIds.add(imageId);
-            imageView.setColorFilter(R.color.MintCream);
+            imageView.setColorFilter(R.color.LavenderWeb);
             if(selectedIds.size()==12){
                 startGameActivity();
             }
