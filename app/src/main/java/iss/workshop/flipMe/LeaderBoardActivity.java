@@ -20,8 +20,7 @@ import java.util.Collections;
 import java.util.List;
 
 public class LeaderBoardActivity extends AppCompatActivity
-        implements GestureDetector.OnGestureListener, ServiceConnection,
-        View.OnClickListener {
+        implements GestureDetector.OnGestureListener, ServiceConnection{
     MusicService musicService;
     String currentSong;
 
@@ -45,10 +44,6 @@ public class LeaderBoardActivity extends AppCompatActivity
         bindService(intent,this,BIND_AUTO_CREATE);
         currentSong=getIntent().getStringExtra("currentSong");
 
-        Button btnBack = (Button)findViewById(R.id.backBtn);
-        if(btnBack!=null){
-            btnBack.setOnClickListener(this);
-        }
 
         leaderBoardListing();
     }
@@ -176,10 +171,4 @@ public class LeaderBoardActivity extends AppCompatActivity
 
     }
 
-    @Override
-    public void onClick(View view) {
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
-
-    }
 }

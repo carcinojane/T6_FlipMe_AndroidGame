@@ -19,7 +19,7 @@ import iss.workshop.flipMe.MainActivity;
 import iss.workshop.flipMe.R;
 
 public class VideoActivity extends AppCompatActivity
-        implements GestureDetector.OnGestureListener, View.OnClickListener {
+        implements GestureDetector.OnGestureListener {
 
     protected VideoView videoView;
     protected MediaController mc;
@@ -46,12 +46,6 @@ public class VideoActivity extends AppCompatActivity
                 |View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
                 | View.SYSTEM_UI_FLAG_FULLSCREEN);
         playVideo();
-
-        Button btnBack = (Button)findViewById(R.id.btnBack);
-        if(btnBack!=null){
-            btnBack.setOnClickListener(this);
-        }
-
     }
 
     protected void playVideo(){
@@ -138,9 +132,4 @@ public class VideoActivity extends AppCompatActivity
         return false;
     }
 
-    @Override
-    public void onClick(View view) {
-        Intent intent = new Intent(this,MainActivity.class);
-        startActivity(intent);
-    }
 }

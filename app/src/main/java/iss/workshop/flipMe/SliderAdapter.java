@@ -24,13 +24,15 @@ public class SliderAdapter extends PagerAdapter {
     public int[] slide_images={
             R.drawable.choose_level,
             R.drawable.select_image,
-            R.drawable.match_image
+            R.drawable.match_image,
+            R.drawable.choose_level
     };
 
     public String[] slide_headings={
             "Choose a Level",
             "Select your images",
-            "Find matching images"
+            "Find matching images",
+            "Swipe up now!"
     };
 
     public String[] slide_descs={
@@ -39,7 +41,9 @@ public class SliderAdapter extends PagerAdapter {
             "Firstly, input a URL and select fetch to retrieve your favourite images for the game." +
                     " Next, select the images of your choice.",
             "Finally, let the game begin, tap on the cards to reveal images behind them, find all matching pairs" +
-                    "within the time limit to score points."
+                    "within the time limit to score points.",
+            "Did you know? swiping up at any page will redirect you back to the homepage. Back buttons " +
+                    "are cool, but swiping is way cooler."
     };
 
     @Override
