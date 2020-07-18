@@ -3,13 +3,16 @@ package iss.workshop.flipMe;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
+import android.content.ComponentName;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
+import android.os.IBinder;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -26,9 +29,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class GameActivity extends AppCompatActivity
-        implements AdapterView.OnItemClickListener, View.OnClickListener{
+        implements AdapterView.OnItemClickListener, View.OnClickListener, ServiceConnection {
 
-    private GameMusic gameMusic;
+    MediaPlayer flip;
+    MediaPlayer correct;
+    MediaPlayer wrong;
+    private MusicService musicService;
     GridView gridView;
     ImageView imageView;
     ArrayList<ImageDTO> allImages;
@@ -54,6 +60,8 @@ public class GameActivity extends AppCompatActivity
     AlertDialog popUpBoxLose;
     public static MediaPlayer game;
     int difficulty;
+    String currentSong;
+    boolean continuePlaying;
 
 
     @Override
@@ -64,10 +72,13 @@ public class GameActivity extends AppCompatActivity
         //start timer
         startTimer();
 
-        game=MediaPlayer.create(this,R.raw.game);
-        gameMusic=new GameMusic(this);
+        Intent intent1=new Intent(this,MusicService.class);
+        bindService(intent1,this,BIND_AUTO_CREATE);
+        currentSong="game";
 
-
+        flip=MediaPlayer.create(this,R.raw.flip);
+        wrong=MediaPlayer.create(this,R.raw.wrong);
+        correct=MediaPlayer.create(this,R.raw.correct);
 
         //get selected images
         Intent intent = getIntent();
@@ -116,6 +127,34 @@ public class GameActivity extends AppCompatActivity
 
 
     }
+    @Override
+    public void onPause(){
+        super.onPause();
+        if(musicService!=null&&!continuePlaying) musicService.stopPlaying();
+    }
+
+    void playMusic(){
+        if(musicService!=null){
+            switch (currentSong){
+                case "game":
+                    musicService.playGameSong();
+                    break;
+                case "congratulation":
+                    musicService.playCongratulationSong();
+                    break;
+                case "timeout":
+                    musicService.playTimeOutSong();
+                    break;
+            }
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unbindService(this);
+    }
+
 
     @Override
     public void onClick(View view) {
@@ -142,6 +181,8 @@ public class GameActivity extends AppCompatActivity
 
             //route user to leader board listing
             Intent intent = new Intent(GameActivity.this, LeaderBoardActivity.class);
+            intent.putExtra("currentSong",currentSong);
+            continuePlaying=true;
             startActivity(intent);
         }
 
@@ -156,12 +197,12 @@ public class GameActivity extends AppCompatActivity
 
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-        game.start();
+        currentSong="game";
         ViewGroup gridElement = (ViewGroup) gridView.getChildAt(i);
         ImageView currImg = (ImageView) gridElement.getChildAt(0);
         ImageDTO image = selectedImages.get(i);
         currImg.setImageBitmap(image.getBitmap());
-        gameMusic.playClickSound();
+        flip.start();
         //imageView=(ImageView)findViewById(R.id.gameImageview);
         //Bitmap bitmap = image.getBitmap();
         if(!matchedCards.contains(image.getId())) {
@@ -187,12 +228,12 @@ public class GameActivity extends AppCompatActivity
 
                         if (selectid1.getBitmap() != selectid2.getBitmap() && imageView1 != null && imageView2 != null) {
                             handler.postDelayed(runnable, 500);
-                            gameMusic.playWrongSound();
+                            wrong.start();
                         } else if (selectid1.getBitmap() == selectid2.getBitmap()) {
                             matchCount++;
                             matchedCards.add(image.getId());
                             matches.setText(matchCount + "/" + difficulty);
-                            gameMusic.playCorrectSound();
+                            correct.start();
                         }
                     }
                     selectCount = 0;
@@ -246,7 +287,7 @@ public class GameActivity extends AppCompatActivity
         //display header
         TextView header = popUp.findViewById(R.id.header);
         header.setText(R.string.game_completed);
-        gameMusic.playWinSound();
+        musicService.playCongratulationSong();
 
         //display player's final score;
         TextView finalScore = popUp.findViewById(R.id.score);
@@ -299,6 +340,7 @@ public class GameActivity extends AppCompatActivity
         LayoutInflater inflater = this.getLayoutInflater();
         View popUp = inflater.inflate(R.layout.pop_up_dialogue_box_lose, null);
 
+
         builder.setView(popUp);
         builder.setCancelable(false);
         popUpBoxLose = builder.create();
@@ -320,7 +362,21 @@ public class GameActivity extends AppCompatActivity
             popUpDialogue();
         } else{
             popUpDialogueLose();
+            musicService.playTimeOutSong();
         }
     }
 
+    @Override
+    public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
+        MusicService.LocalBinder binder=(MusicService.LocalBinder) iBinder;
+        if (binder!=null){
+            musicService=binder.getService();
+            playMusic();
+        }
+    }
+
+    @Override
+    public void onServiceDisconnected(ComponentName componentName) {
+
+    }
 }

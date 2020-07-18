@@ -60,7 +60,7 @@ public class MusicService extends Service {
         if(gameMusicPlayer != null) gameMusicPlayer.pause();
         if(timeoutMusicPlayer != null) timeoutMusicPlayer.pause();
         if(congratulationMusicPlayer == null) {
-//            congratulationMusicPlayer = MediaPlayer.create(this, R.raw.congratulation);
+            congratulationMusicPlayer = MediaPlayer.create(this, R.raw.congratulation);
             congratulationMusicPlayer.setLooping(false);
         }
         congratulationMusicPlayer.start();
@@ -70,7 +70,7 @@ public class MusicService extends Service {
         if(gameMusicPlayer != null) gameMusicPlayer.pause();
         if(congratulationMusicPlayer != null) congratulationMusicPlayer.pause();
         if(timeoutMusicPlayer == null) {
-//            timeoutMusicPlayer = MediaPlayer.create(this, R.raw.timeout);
+            timeoutMusicPlayer = MediaPlayer.create(this, R.raw.timeout);
             timeoutMusicPlayer.setLooping(false);
         }
         timeoutMusicPlayer.start();

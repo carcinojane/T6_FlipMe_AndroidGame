@@ -2,9 +2,12 @@ package iss.workshop.flipMe;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.ComponentName;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
@@ -17,7 +20,10 @@ import java.util.Collections;
 import java.util.List;
 
 public class LeaderBoardActivity extends AppCompatActivity
-        implements GestureDetector.OnGestureListener{
+        implements GestureDetector.OnGestureListener, ServiceConnection,
+        View.OnClickListener {
+    MusicService musicService;
+    String currentSong;
 
     private static final String TAG = "Swipe Position";
     private float x1, x2, y1, y2;
@@ -35,6 +41,14 @@ public class LeaderBoardActivity extends AppCompatActivity
 //        SharedPreferences pref = getSharedPreferences("players",MODE_PRIVATE);
 //        pref.getString("name","");
 //        pref.getInt("score",0);
+        Intent intent=new Intent(this,MusicService.class);
+        bindService(intent,this,BIND_AUTO_CREATE);
+        currentSong=getIntent().getStringExtra("currentSong");
+
+        Button btnBack = (Button)findViewById(R.id.backBtn);
+        if(btnBack!=null){
+            btnBack.setOnClickListener(this);
+        }
 
         leaderBoardListing();
     }
@@ -146,5 +160,26 @@ public class LeaderBoardActivity extends AppCompatActivity
     @Override
     public boolean onFling(MotionEvent motionEvent, MotionEvent motionEvent1, float v, float v1) {
         return false;
+    }
+
+    @Override
+    public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
+        MusicService.LocalBinder binder=(MusicService.LocalBinder) iBinder;
+        if(binder!=null){
+            musicService=binder.getService();
+            musicService.playMenuSong();
+        }
+    }
+
+    @Override
+    public void onServiceDisconnected(ComponentName componentName) {
+
+    }
+
+    @Override
+    public void onClick(View view) {
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+
     }
 }

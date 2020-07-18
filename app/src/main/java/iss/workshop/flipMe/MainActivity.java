@@ -18,7 +18,7 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity
 implements View.OnClickListener, ServiceConnection {
     MusicService musicService;
-    boolean continuePlaying=true;
+    boolean continuePlaying;
     String url;
     ArrayList<ImageDTO> images;
 
@@ -76,11 +76,10 @@ implements View.OnClickListener, ServiceConnection {
 
     @Override
     public void onClick(View view) {
-        Intent intent1 = new Intent(this, MusicService.class);
-        startService(intent1);
         int id = view.getId();
 
         if(id==R.id.btnStartEasy) {
+            continuePlaying=true;
             //get images bitmap
 
             //image adapter
@@ -92,6 +91,7 @@ implements View.OnClickListener, ServiceConnection {
         }
 
         if(id==R.id.btnStartDifficult) {
+            continuePlaying=true;
             //get images bitmap
 
             //image adapter
@@ -102,16 +102,19 @@ implements View.OnClickListener, ServiceConnection {
         }
 
         if(id==R.id.btnLBoard){
+            continuePlaying=true;
             Intent intent = new Intent(this, LeaderBoardActivity.class);
             startActivity(intent);
         }
 
         if(id==R.id.btnAbout){
+            continuePlaying=true;
             Intent intent = new Intent(this,OnBoardActivity.class);
             startActivity(intent);
         }
 
         if(id==R.id.btnVid){
+            continuePlaying=true;
             Intent intent = new Intent(this,VideoActivity.class);
             startActivity(intent);
         }

@@ -37,7 +37,6 @@ public class WebViewActivity extends AppCompatActivity
     FetchAsyncTask fetchTask;
     int imageCount =0;
     int difficulty;
-    private GameMusic gameMusic;
 
     private static final String TAG = "Swipe Position";
     private float x1, x2, y1, y2;
