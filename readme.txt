@@ -1,4 +1,4 @@
-3rd party libraries:Nil
+3rd party libraries: To be able to use gif images in the app - https://github.com/koral--/android-gif-drawable
 Source Code: Nil 
 
 Contribution:
