@@ -1,7 +1,8 @@
 <resources>
     <string name="app_name">WAD Android CA</string>
-    <string name="start">Start</string>
-    <string name="team6">Team-6™</string>
+    <string name="startEasy">I can flip</string>
+    <string name="startDifficult">I am flipping good</string>
+    <string name="team6">Team-6</string>
     <string name="designDesc">Top Bar</string>
     <string name="about">How to Play</string>
     <string name="lBoard">Leader Board</string>
@@ -14,6 +15,8 @@
     <string name="matches">Matches</string>
     <string name="pop_up_final_score">FINAL SCORE</string>
     <string name="game_completed">Congratulation!</string>
+    <string name="game_lose">Time is Up!</string>
+    <string name="pop_up_lose_msg">That was close, better luck next time!</string>
     <string name="leader_board_title">Leader Board</string>
     <string name="leader_board_table_header_rank">Rank</string>
     <string name="leader_board_table_header_name">Name</string>

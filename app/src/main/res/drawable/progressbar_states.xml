@@ -12,11 +12,11 @@
         <clip>
             <shape>
                 <gradient
-                    android:startColor="@color/LavenderBlush"
-                    android:centerColor="@color/colorPrimary"
+                    android:startColor="@color/TrypanBlue"
+                    android:centerColor="@color/TickleMePink"
                     android:centerY="0.50"
-                    android:endColor="@color/AmaranthPurple"
-                    android:angle="270"
+                    android:endColor="@color/MacaroniAndCheese"
+                    android:angle="360"
                     />
                 <corners android:radius="20dp"/>
             </shape>

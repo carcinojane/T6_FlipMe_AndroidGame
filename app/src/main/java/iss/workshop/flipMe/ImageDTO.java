@@ -14,7 +14,15 @@ public class ImageDTO
     private int pos;
     private int id;
 
+    public ImageDTO() {
+    }
+
     public ImageDTO(int id) {
+        this.id = id;
+    }
+
+    public ImageDTO(int id, Bitmap bitmap) {
+        this.bitmap = bitmap;
         this.id = id;
     }
 

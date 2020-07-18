@@ -3,17 +3,13 @@
     android:shape="rectangle">
     <corners android:radius="50dp"/>
     <stroke android:width="4dp"
-        android:color="@color/Asparagus"/>
+        android:color="@color/TrypanBlue"/>
     <padding
         android:bottom="5dp"
         android:left="10dp"
         android:right="10dp"
         android:top="5dp"/>
-    <gradient
-        android:startColor="@color/Ivory"
-        android:centerColor="@color/Ivory"
-        android:endColor="@color/Transparent"
-        android:angle="90"
-        android:dither="true"
+    <solid
+        android:color="@color/LavenderWeb"
         />
 </shape>

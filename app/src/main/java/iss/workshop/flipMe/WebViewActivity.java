@@ -13,6 +13,7 @@ import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
@@ -23,7 +24,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 public class WebViewActivity extends AppCompatActivity
-        implements View.OnClickListener, FetchAsyncTask.ICallback, GestureDetector.OnGestureListener {
+        implements View.OnClickListener, FetchAsyncTask.ICallback, GestureDetector.OnGestureListener, AdapterView.OnItemClickListener {
 
     //declare variables
     public static final int NO_OF_IMAGES = 20;
@@ -35,11 +36,15 @@ public class WebViewActivity extends AppCompatActivity
     public int pos=0;
     FetchAsyncTask fetchTask;
     int imageCount =0;
+    int difficulty;
+    private GameMusic gameMusic;
 
     private static final String TAG = "Swipe Position";
     private float x1, x2, y1, y2;
     private static int MIN_DISTANCE = 150;
     private GestureDetector gestureDetector;
+    private ArrayList<Integer> selectedIds = new ArrayList<>();
+    private boolean isFetchButtonClicked=false;
 
     //UI Elements
     EditText urlTxt;
@@ -50,6 +55,10 @@ public class WebViewActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_web_view);
+
+        Intent intent= getIntent();
+        difficulty = intent.getIntExtra("difficulty",6);
+        System.out.println(intent.getStringExtra("test"));
 
         //initialize gesture detector
         this.gestureDetector = new GestureDetector(WebViewActivity.this, this);
@@ -67,7 +76,8 @@ public class WebViewActivity extends AppCompatActivity
         progressTxt=(TextView) findViewById(R.id.progressTxt);
         urlTxt= (EditText)findViewById(R.id.urlTxt);
         gridView = (GridView)findViewById(R.id.gridview);
-        imageView=(ImageView)findViewById(R.id.imageview);
+        //imageView=(ImageView)findViewById(R.id.imageview);
+        selectedIds.clear();
 
         //progress bar
         progressBar = findViewById(R.id.progressBar);
@@ -78,6 +88,7 @@ public class WebViewActivity extends AppCompatActivity
 
         ImageAdapter imageAdapter = new ImageAdapter(this,images);
         gridView.setAdapter(imageAdapter);
+        gridView.setOnItemClickListener(this);
         gridView.setVerticalScrollBarEnabled(false);
 
         //set onCLickListeners
@@ -90,6 +101,7 @@ public class WebViewActivity extends AppCompatActivity
 
     @Override
     public void onClick(View view) {
+        isFetchButtonClicked=true;
         int id = view.getId();
         if(id==R.id.btnFetch){
             url = urlTxt.getText().toString();
@@ -119,7 +131,7 @@ public class WebViewActivity extends AppCompatActivity
             Message msg = new Message();
             msg.obj = image;
             images.get(imageCount).setBitmap(image.getBitmap());
-            images.get(imageCount).setId(imageCount+1);
+            images.get(imageCount).setId(imageCount);
             allImages.add(image);
             imageCount++;
             mainHandler.sendMessage(msg);
@@ -144,7 +156,7 @@ public class WebViewActivity extends AppCompatActivity
             pos++;
             System.out.println(pos);
             if(pos>=NO_OF_IMAGES){
-            pos=0;
+                pos=0;
             }
             progressBarHandler.sendMessage(progressBarHandler.obtainMessage());
         }
@@ -152,16 +164,16 @@ public class WebViewActivity extends AppCompatActivity
 
     @SuppressLint("HandlerLeak")
     Handler progressBarHandler = new Handler(){
-      @Override
-      public void handleMessage(@NonNull Message msg){
-          progressBar.incrementProgressBy(1);
-          progressTxt.setText("downloading "+progressBar.getProgress()+"/"+ progressBar.getMax());
+        @Override
+        public void handleMessage(@NonNull Message msg){
+            progressBar.incrementProgressBy(1);
+            progressTxt.setText("downloading "+progressBar.getProgress()+"/"+ progressBar.getMax());
 
-          if(progressBar.getProgress()==progressBar.getMax()){
-              progressBar.setVisibility(View.INVISIBLE);
-              progressTxt.setText("Pick 6 images");
-          }
-      }
+            if(progressBar.getProgress()==progressBar.getMax()){
+                progressBar.setVisibility(View.INVISIBLE);
+                progressTxt.setText("Pick "+difficulty+" images");
+            }
+        }
     };
 
 
@@ -178,7 +190,10 @@ public class WebViewActivity extends AppCompatActivity
     }
 
     public void startGameActivity(){
+
         Intent intent= new Intent(this,GameActivity.class);
+        intent.putIntegerArrayListExtra("ImageIds",selectedIds);
+        intent.putExtra("difficulty",difficulty);
         startActivity(intent);
     }
 
@@ -244,5 +259,31 @@ public class WebViewActivity extends AppCompatActivity
     @Override
     public boolean onFling(MotionEvent motionEvent, MotionEvent motionEvent1, float v, float v1) {
         return false;
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+        ImageView imageView= view.findViewById(R.id.imageview);
+        ImageDTO image = images.get(i);
+        int imageId=image.getId();
+        System.out.println(imageId);
+        if(isFetchButtonClicked){
+            if(selectedIds.contains(imageId)){
+                selectedIds.remove(new Integer(imageId));
+                selectedIds.remove(new Integer(imageId));
+                imageView.clearColorFilter();;
+            }
+            else{
+                selectedIds.add(imageId);
+                selectedIds.add(imageId);
+                imageView.setColorFilter(R.color.LavenderWeb);
+                if(selectedIds.size()==difficulty*2){
+                    startGameActivity();
+                }
+            }
+            progressTxt.setText(selectedIds.size()/2+"/"+difficulty+" images selected");
+
+        }
+
     }
 }
