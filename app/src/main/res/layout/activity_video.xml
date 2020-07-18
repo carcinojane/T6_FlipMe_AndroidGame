@@ -23,29 +23,10 @@
         android:id="@+id/videoView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@id/videoFooter"
+        android:adjustViewBounds="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/videoHeader"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <LinearLayout
-        android:id="@+id/videoFooter"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent">
-
-        <Button
-            android:id="@+id/btnBack"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@color/TrypanBlue"
-            android:fontFamily="@font/francois_one"
-            android:text="@string/back"
-            android:textColor="@color/White"
-            android:textSize="18sp"/>
-    </LinearLayout>
+        app:layout_constraintTop_toBottomOf="@id/videoHeader" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

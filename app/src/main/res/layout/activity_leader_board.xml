@@ -72,26 +72,8 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:cacheColorHint="@color/Rhythm"
-        app:layout_constraintBottom_toTopOf="@id/leaderBoardFooter"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/leaderTableHeading" />
 
-    <LinearLayout
-        android:id="@+id/leaderBoardFooter"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent">
-
-        <Button
-            android:id="@+id/backBtn"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@color/TrypanBlue"
-            android:fontFamily="@font/francois_one"
-            android:text="@string/back"
-            android:textColor="@color/White"
-            android:textSize="18sp" />
-    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
