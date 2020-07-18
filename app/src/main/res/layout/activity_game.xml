@@ -45,7 +45,6 @@
                 android:layout_weight="1.2"
                 android:fontFamily="@font/francois_one"
                 android:gravity="top|center"
-                android:text="0/6"
                 android:textColor="@color/TickleMePink"
                 android:textSize="24sp" />
         </LinearLayout>

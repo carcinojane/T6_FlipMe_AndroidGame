@@ -78,6 +78,7 @@ public class GameActivity extends AppCompatActivity
 
         //get difficulty
         difficulty = intent.getIntExtra("difficulty",6);
+        matches.setText(matchCount + "/" + difficulty);
 
         for(int selectedId:selectedIds){
             for(ImageDTO image:allImages){
@@ -164,7 +165,7 @@ public class GameActivity extends AppCompatActivity
         //imageView=(ImageView)findViewById(R.id.gameImageview);
         //Bitmap bitmap = image.getBitmap();
         if(!matchedCards.contains(image.getId())) {
-            if (matchCount < 6) {
+            if (matchCount < difficulty) {
                 if (selectCount == 0) {
                     selectid1 = null;
                     selectid2 = null;
@@ -190,14 +191,14 @@ public class GameActivity extends AppCompatActivity
                         } else if (selectid1.getBitmap() == selectid2.getBitmap()) {
                             matchCount++;
                             matchedCards.add(image.getId());
-                            matches.setText(matchCount + "/" + "6");
+                            matches.setText(matchCount + "/" + difficulty);
                             gameMusic.playCorrectSound();
                         }
                     }
                     selectCount = 0;
                 }
             }
-            if (matchCount == 6) {
+            if (matchCount == difficulty) {
                 stopGame();
             }
         }
