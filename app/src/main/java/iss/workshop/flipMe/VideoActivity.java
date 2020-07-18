@@ -54,7 +54,7 @@ public class VideoActivity extends AppCompatActivity
         if (videoView == null)
             return;
 
-        String path="android.resource://"+getPackageName()+"/"+R.raw.demo_edit;
+        String path="android.resource://"+getPackageName()+"/"+R.raw.tutorial_video;
         Uri uri = Uri.parse(path);
         videoView.setVideoURI(uri);
 
