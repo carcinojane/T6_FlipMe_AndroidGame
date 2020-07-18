@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/header_lose"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:fontFamily="@font/francois_one"
+        android:gravity="center"
+        android:paddingTop="15dp"
+        android:text="@string/game_lose"
+        android:textAlignment="center"
+        android:textColor="@color/TrypanBlue"
+        android:textSize="28sp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:paddingTop="50dp"
+        android:paddingBottom="50dp"
+        android:text="@string/pop_up_lose_msg"
+        android:textAlignment="center"
+        android:textColor="@color/Rhythm"
+        android:textSize="16sp" />
+
+
+    <Button
+        android:id="@+id/okBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/TrypanBlue"
+        android:fontFamily="@font/francois_one"
+        android:text="OK"
+        android:textColor="@color/White"
+        android:textSize="18sp" />
+
+</LinearLayout>
