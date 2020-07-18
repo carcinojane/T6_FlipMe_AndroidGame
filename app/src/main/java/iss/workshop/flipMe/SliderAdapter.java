@@ -28,7 +28,7 @@ public class SliderAdapter extends PagerAdapter {
     };
 
     public String[] slide_headings={
-            "Choose a Level",
+            "Choose a level",
             "Select your images",
             "Find matching images",
             "Swipe up now!"
