@@ -64,7 +64,6 @@
             android:textAlignment="center"
             android:textColor="@color/Rhythm"
             android:textSize="22sp" />
-
     </LinearLayout>
 
     <ListView

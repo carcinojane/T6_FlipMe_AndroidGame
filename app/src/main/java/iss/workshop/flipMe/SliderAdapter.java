@@ -17,7 +17,6 @@ public class SliderAdapter extends PagerAdapter {
     LayoutInflater layoutInflater;
 
     public SliderAdapter(Context context){
-
         this.context=context;
     }
 

@@ -89,7 +89,6 @@ public class LeaderBoardActivity extends AppCompatActivity
 //        }
 //        System.out.println(playerList.size());
 //        return  playerList;
-
     }
 
     //override on touch event

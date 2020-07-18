@@ -38,7 +38,6 @@ public class OnBoardActivity extends AppCompatActivity implements GestureDetecto
 
         //initialize gesture detector
         this.gestureDetector = new GestureDetector(OnBoardActivity.this, this);
-
     }
 
     public  void addDotsIndicator(int position){
@@ -53,7 +52,7 @@ public class OnBoardActivity extends AppCompatActivity implements GestureDetecto
            mDotLayout.addView(mDots[i]);
        }
        if(mDots.length>0){
-           mDots[position].setTextColor(getResources().getColor(R.color.colorWhite));
+           mDots[position].setTextColor(getResources().getColor(R.color.White));
        }
     }
 

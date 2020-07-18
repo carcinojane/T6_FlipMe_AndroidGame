@@ -18,8 +18,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import iss.workshop.flipMe.MainActivity;
 import iss.workshop.flipMe.R;
 
-public class VideoActivity extends AppCompatActivity
-        implements GestureDetector.OnGestureListener {
+public class VideoActivity extends AppCompatActivity implements GestureDetector.OnGestureListener {
 
     protected VideoView videoView;
     protected MediaController mc;
