@@ -3,6 +3,7 @@ package iss.workshop.flipMe;
 import android.app.Service;
 import android.content.Intent;
 import android.media.MediaPlayer;
+import android.os.Binder;
 import android.os.IBinder;
 import android.widget.Toast;
 
@@ -10,64 +11,74 @@ import java.io.IOException;
 
 public class MusicService extends Service {
 
-    private MediaPlayer mediaPlayer = null;
+    MediaPlayer menuMusicPlayer;
+    MediaPlayer gameMusicPlayer;
+    MediaPlayer congratulationMusicPlayer;
+    MediaPlayer timeoutMusicPlayer;
 
-    private boolean isReady = false;
+    private final IBinder binder = (IBinder) new LocalBinder();
 
-    @Override
-    public void onCreate() {
-        super.onCreate();
-
-        mediaPlayer = MediaPlayer.create(this, R.raw.background);
-        if(mediaPlayer == null){
-            return;
-        }
-
-        mediaPlayer.stop();
-        mediaPlayer.setOnErrorListener(new MediaPlayer.OnErrorListener() {
-            @Override
-            public boolean onError(MediaPlayer mp, int what, int extra) {
-                mp.release();
-                stopSelf();
-                return false;
-            }
-        });
-
-        try{
-            mediaPlayer.prepare();
-            isReady = true;
-        } catch (IOException e) {
-            e.printStackTrace();
-            isReady = false;
-        }
-
-        if(isReady){
-            mediaPlayer.setLooping(true);
+    public class LocalBinder extends Binder {
+        MusicService getService(){
+            return MusicService.this;
         }
     }
 
     @Override
-    public int onStartCommand(Intent intent, int flags, int startId) {
-        if(isReady && !mediaPlayer.isPlaying()){
-            //播放背景音乐
-            mediaPlayer.start();
-        }
-        return START_STICKY;
+    public IBinder onBind(Intent intent){
+        return binder;
     }
 
     @Override
-    public IBinder onBind(Intent intent) {
-        return null;
+    public boolean onUnbind(Intent intent){
+        return super.onUnbind(intent);
     }
 
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        if(mediaPlayer != null){
-            if(mediaPlayer.isPlaying()){
-                mediaPlayer.stop();
-            }
-            mediaPlayer.release();
+    public void playMenuSong(){
+        if(gameMusicPlayer != null) gameMusicPlayer.pause();
+        if(congratulationMusicPlayer != null) congratulationMusicPlayer.pause();
+        if(timeoutMusicPlayer != null) timeoutMusicPlayer.pause();
+        if(menuMusicPlayer == null) {
+            menuMusicPlayer = MediaPlayer.create(this, R.raw.background);
+            menuMusicPlayer.setLooping(true);
         }
+        menuMusicPlayer.start();
+    }
+
+    public void playGameSong(){
+        if(menuMusicPlayer != null) menuMusicPlayer.pause();
+        if(congratulationMusicPlayer != null) congratulationMusicPlayer.pause();
+        if(timeoutMusicPlayer != null) timeoutMusicPlayer.pause();
+        if(gameMusicPlayer == null) {
+            gameMusicPlayer = MediaPlayer.create(this, R.raw.game);
+            gameMusicPlayer.setLooping(true);
+        }
+        gameMusicPlayer.start();
+    }
+    public void playCongratulationSong(){
+        if(menuMusicPlayer != null) menuMusicPlayer.pause();
+        if(gameMusicPlayer != null) gameMusicPlayer.pause();
+        if(timeoutMusicPlayer != null) timeoutMusicPlayer.pause();
+        if(congratulationMusicPlayer == null) {
+//            congratulationMusicPlayer = MediaPlayer.create(this, R.raw.congratulation);
+            congratulationMusicPlayer.setLooping(false);
+        }
+        congratulationMusicPlayer.start();
+    }
+    public void playTimeOutSong(){
+        if(menuMusicPlayer != null) menuMusicPlayer.pause();
+        if(gameMusicPlayer != null) gameMusicPlayer.pause();
+        if(congratulationMusicPlayer != null) congratulationMusicPlayer.pause();
+        if(timeoutMusicPlayer == null) {
+//            timeoutMusicPlayer = MediaPlayer.create(this, R.raw.timeout);
+            timeoutMusicPlayer.setLooping(false);
+        }
+        timeoutMusicPlayer.start();
+    }
+    public void stopPlaying(){
+        if(menuMusicPlayer != null) menuMusicPlayer.pause();
+        if(gameMusicPlayer != null) gameMusicPlayer.pause();
+        if(congratulationMusicPlayer != null) congratulationMusicPlayer.pause();
+        if(timeoutMusicPlayer != null) timeoutMusicPlayer.pause();
     }
 }

@@ -23,7 +23,6 @@
         android:id="@+id/buttonPanel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toTopOf="@id/footer"
@@ -39,7 +38,7 @@
             android:textColor="@color/White"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/buttonPanel"
+            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toTopOf="@id/btnStartDifficult"/>
 
         <Button
@@ -83,6 +82,20 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/btnLBoard"
             app:layout_constraintBottom_toBottomOf="@id/buttonPanel"/>
+
+        <Button
+            android:id="@+id/btnVid"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/btn_rounded_ticklemepink"
+            android:fontFamily="@font/francois_one"
+            android:text="@string/video"
+            android:textColor="@color/White"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btnAbout"
+            app:layout_constraintBottom_toBottomOf="@id/buttonPanel"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
@@ -90,7 +103,7 @@
         android:id="@+id/footer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="0dp"
         android:adjustViewBounds="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

@@ -16,7 +16,9 @@ import android.widget.EditText;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity
-implements View.OnClickListener {
+implements View.OnClickListener, ServiceConnection {
+    MusicService musicService;
+    boolean continuePlaying=true;
     String url;
     ArrayList<ImageDTO> images;
 
@@ -48,6 +50,27 @@ implements View.OnClickListener {
             btnAbout.setOnClickListener(this);
         }
 
+        Button btnVid = findViewById(R.id.btnVid);
+        if(btnVid!=null){
+            btnVid.setOnClickListener(this);
+        }
+
+        Intent intent = new Intent(this, MusicService.class);
+        bindService(intent, this, BIND_AUTO_CREATE);
+
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        continuePlaying = false;
+        if(musicService != null) musicService.playMenuSong();
+    }
+
+    @Override
+    public void onPause(){
+        super.onPause();
+        if(musicService != null && !continuePlaying) musicService.stopPlaying();
     }
 
 
@@ -87,5 +110,24 @@ implements View.OnClickListener {
             Intent intent = new Intent(this,OnBoardActivity.class);
             startActivity(intent);
         }
+
+        if(id==R.id.btnVid){
+            Intent intent = new Intent(this,VideoActivity.class);
+            startActivity(intent);
+        }
+    }
+
+    @Override
+    public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
+        MusicService.LocalBinder binder = (MusicService.LocalBinder) iBinder;
+        if(binder != null) {
+            musicService = binder.getService();
+            musicService.playMenuSong();
+        }
+    }
+
+    @Override
+    public void onServiceDisconnected(ComponentName componentName) {
+
     }
 }

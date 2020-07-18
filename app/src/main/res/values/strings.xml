@@ -5,6 +5,7 @@
     <string name="team6">Team-6</string>
     <string name="designDesc">Top Bar</string>
     <string name="about">How to Play</string>
+    <string name="video">Video tutorial</string>
     <string name="lBoard">Leader Board</string>
     <string name="fetch">Fetch</string>
     <string name="fetch_prompt">Select fetch to download images</string>
@@ -21,5 +22,5 @@
     <string name="leader_board_table_header_rank">Rank</string>
     <string name="leader_board_table_header_name">Name</string>
     <string name="leader_board_table_header_score">Score</string>
-    <string name="leader_board_back_btn">Back</string>
+    <string name="back">Back</string>
 </resources>

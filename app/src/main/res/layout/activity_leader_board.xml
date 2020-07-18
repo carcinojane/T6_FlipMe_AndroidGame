@@ -90,7 +90,7 @@
             android:layout_weight="1"
             android:background="@color/TrypanBlue"
             android:fontFamily="@font/francois_one"
-            android:text="@string/leader_board_back_btn"
+            android:text="@string/back"
             android:textColor="@color/White"
             android:textSize="18sp" />
     </LinearLayout>
