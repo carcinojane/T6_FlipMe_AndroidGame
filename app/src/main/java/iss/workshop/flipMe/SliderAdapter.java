@@ -36,7 +36,7 @@ public class SliderAdapter extends PagerAdapter {
 
     public String[] slide_descs={
       "Choose a difficulty level; I can flip is a level for beginners with 6 matching pairs while" +
-              "I can flipping code is a level for the brave souls.",
+              " I am flipping good is a level for the brave souls.",
             "Firstly, input a URL and select fetch to retrieve your favourite images for the game." +
                     " Next, select the images of your choice.",
             "Finally, let the game begin, tap on the cards to reveal images behind them, find all matching pairs" +
