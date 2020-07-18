@@ -25,7 +25,7 @@ public class SliderAdapter extends PagerAdapter {
             R.drawable.choose_level,
             R.drawable.select_image,
             R.drawable.match_image,
-            R.drawable.choose_level
+            R.drawable.swipe_up
     };
 
     public String[] slide_headings={
