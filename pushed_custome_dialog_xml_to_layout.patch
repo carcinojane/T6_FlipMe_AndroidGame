@@ -1,0 +1,42 @@
+Index: app/src/main/res/layout/custom_dialog.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/layout/custom_dialog.xml	(date 1594981859860)
++++ app/src/main/res/layout/custom_dialog.xml	(date 1594981859860)
+@@ -0,0 +1,33 @@
++<?xml version="1.0" encoding="utf-8"?>
++<LinearLayout
++    xmlns:android="http://schemas.android.com/apk/res/android"
++    android:layout_width="match_parent"
++    android:layout_height="match_parent"
++    android:background="@drawable/background_gradient"
++    android:orientation="vertical"
++    android:padding="15dp">
++    <TextView
++        android:layout_width="match_parent"
++        android:layout_height="wrap_content"
++        android:text="Enter URL. Pick 6 images. Match the images to win."
++        android:textSize="22sp"
++        android:textAlignment="center"
++        android:background="@drawable/btn_rounded_asparagus"/>
++
++    <LinearLayout
++        android:layout_width="match_parent"
++        android:layout_height="wrap_content"
++        android:layout_marginTop="15dp">
++
++        <Button
++            android:id="@+id/btn_okay"
++            android:layout_width="match_parent"
++            android:layout_height="wrap_content"
++            android:backgroundTint="@color/colorPrimary"
++            android:text="Okay"
++            android:textColor="#ffffff"
++            android:textSize="18sp"
++            android:background="@drawable/btn_rounded_asparagus"
++            android:layout_weight="1"/>
++    </LinearLayout>
++</LinearLayout>
+\ No newline at end of file

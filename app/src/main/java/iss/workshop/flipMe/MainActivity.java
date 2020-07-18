@@ -22,11 +22,15 @@ implements View.OnClickListener {
 
         //get UI elements
         Button btnStart = findViewById(R.id.btnStart);
-
+        Button btnAbout = findViewById(R.id.btnAbout);
 
         //set onClickListener
         if(btnStart!=null){
             btnStart.setOnClickListener(this);
+        }
+
+        if(btnAbout!=null){
+            btnAbout.setOnClickListener(this);
         }
 
         Button btnBoard = findViewById(R.id.btnLBoard);
@@ -53,6 +57,10 @@ implements View.OnClickListener {
             startActivity(intent);
         }
 
+        if(id==R.id.btnAbout){
+            Intent intent = new Intent(this, VideoActivity.class);
+            startActivity(intent);
+        }
     }
 
 }
