@@ -22,9 +22,9 @@ public class SliderAdapter extends PagerAdapter {
     }
 
     public int[] slide_images={
-            R.drawable.eat_icon,
-            R.drawable.sleep_icon,
-            R.drawable.code_icon
+            R.drawable.choose_level,
+            R.drawable.select_image,
+            R.drawable.match_image
     };
 
     public String[] slide_headings={
@@ -37,7 +37,7 @@ public class SliderAdapter extends PagerAdapter {
       "Choose a difficulty level; I can flip is a level for beginners with 6 matching pairs while" +
               "I can flipping code is a level for the brave souls.",
             "Firstly, input a URL and select fetch to retrieve your favourite images for the game." +
-                    "Next, select the images of your choice.",
+                    " Next, select the images of your choice.",
             "Finally, let the game begin, tap on the cards to reveal images behind them, find all matching pairs" +
                     "within the time limit to score points."
     };
