@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -17,6 +18,13 @@
         android:textAlignment="center"
         android:textColor="@color/TrypanBlue"
         android:textSize="28sp" />
+
+    <ImageView
+        android:id="@+id/dialog_lose_character"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_weight="1"
+        app:srcCompat="@drawable/dialog_character" />
 
     <TextView
         android:layout_width="match_parent"

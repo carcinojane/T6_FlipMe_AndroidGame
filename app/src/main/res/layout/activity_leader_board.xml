@@ -18,7 +18,11 @@
         android:textColor="@color/TickleMePink"
         android:textSize="32sp"
         android:textStyle="bold"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/leaderTableHeading"/>
+
     <LinearLayout
         android:id="@+id/leaderTableHeading"
         app:layout_constraintTop_toBottomOf="@id/leaderBoardHeader"
