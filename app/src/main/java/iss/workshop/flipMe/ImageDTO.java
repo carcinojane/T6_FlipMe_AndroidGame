@@ -1,14 +1,8 @@
 package iss.workshop.flipMe;
 
 import android.graphics.Bitmap;
-import android.os.Parcel;
-import android.os.Parcelable;
 
-import java.io.Serializable;
-
-
-public class ImageDTO
-        implements Serializable, Parcelable {
+public class ImageDTO{
     private Bitmap bitmap;
     private String url;
     private int pos;
@@ -31,25 +25,7 @@ public class ImageDTO
         this.url = url;
     }
 
-    protected ImageDTO(Parcel in) {
-        bitmap = in.readParcelable(Bitmap.class.getClassLoader());
-        url = in.readString();
-        pos = in.readInt();
-        id = in.readInt();
-    }
-
-    public static final Creator<ImageDTO> CREATOR = new Creator<ImageDTO>() {
-        @Override
-        public ImageDTO createFromParcel(Parcel in) {
-            return new ImageDTO(in);
-        }
-
-        @Override
-        public ImageDTO[] newArray(int size) {
-            return new ImageDTO[size];
-        }
-    };
-
+   
     public Bitmap getBitmap() {
         return bitmap;
     }
@@ -77,14 +53,5 @@ public class ImageDTO
     @Override
     public int describeContents() {
         return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeInt(id);
-        parcel.writeString(url);
-        parcel.writeInt(pos);
-        parcel.writeParcelable(bitmap,i);
-
     }
 }
