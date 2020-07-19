@@ -27,10 +27,10 @@ public class OnBoardActivity extends AppCompatActivity implements GestureDetecto
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_onboard);
 
-        mSlideViewPager=(ViewPager)findViewById(R.id.slideViewPager);
-        mDotLayout=(LinearLayout)findViewById(R.id.dots);
+        mSlideViewPager = (ViewPager) findViewById(R.id.slideViewPager);
+        mDotLayout = (LinearLayout) findViewById(R.id.dots);
 
-        sliderAdapter= new SliderAdapter(this);
+        sliderAdapter = new SliderAdapter(this);
 
         mSlideViewPager.setAdapter(sliderAdapter);
         addDotsIndicator(0);
@@ -40,23 +40,24 @@ public class OnBoardActivity extends AppCompatActivity implements GestureDetecto
         this.gestureDetector = new GestureDetector(OnBoardActivity.this, this);
     }
 
-    public  void addDotsIndicator(int position){
-       mDots=new TextView[sliderAdapter.getCount()];
-        mDotLayout.removeAllViews();;
-       for(int i=0; i<mDots.length;i++){
-           mDots[i]= new TextView(this);
-           mDots[i].setText(Html.fromHtml("&#8226;"));
-           mDots[i].setTextSize(35);
-           mDots[i].setTextColor(getResources().getColor(R.color.colorTransparentWhite));
+    public void addDotsIndicator(int position) {
+        mDots = new TextView[sliderAdapter.getCount()];
+        mDotLayout.removeAllViews();
+        ;
+        for (int i = 0; i < mDots.length; i++) {
+            mDots[i] = new TextView(this);
+            mDots[i].setText(Html.fromHtml("&#8226;"));
+            mDots[i].setTextSize(35);
+            mDots[i].setTextColor(getResources().getColor(R.color.colorTransparentWhite));
 
-           mDotLayout.addView(mDots[i]);
-       }
-       if(mDots.length>0){
-           mDots[position].setTextColor(getResources().getColor(R.color.White));
-       }
+            mDotLayout.addView(mDots[i]);
+        }
+        if (mDots.length > 0) {
+            mDots[position].setTextColor(getResources().getColor(R.color.White));
+        }
     }
 
-    ViewPager.OnPageChangeListener viewListener= new ViewPager.OnPageChangeListener() {
+    ViewPager.OnPageChangeListener viewListener = new ViewPager.OnPageChangeListener() {
         @Override
         public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
@@ -79,7 +80,7 @@ public class OnBoardActivity extends AppCompatActivity implements GestureDetecto
     public boolean onTouchEvent(MotionEvent event) {
 
         gestureDetector.onTouchEvent(event);
-        switch (event.getAction()){
+        switch (event.getAction()) {
             //starting to swipe time gesture
             case MotionEvent.ACTION_DOWN:
                 x1 = event.getX();
@@ -96,9 +97,9 @@ public class OnBoardActivity extends AppCompatActivity implements GestureDetecto
                 //getting value for vertical swipe
                 float valueY = y2 - y1;
 
-                if(Math.abs(valueY)>MIN_DISTANCE){
+                if (Math.abs(valueY) > MIN_DISTANCE) {
                     //detect left to right swipe
-                    if (y1>y2){
+                    if (y1 > y2) {
                         super.finish();
                         overridePendingTransition(R.anim.slide_in_bottom, R.anim.slide_in_bottom);
                         Log.d(TAG, "Top Swipe");
