@@ -142,7 +142,6 @@ public class WebViewActivity extends AppCompatActivity
         imageCount=0;
         progressBar.setVisibility(View.VISIBLE);
         progressBar.setProgress(0);
-        //mainHandler.removeCallbacksAndMessages(null);
     }
 
     @SuppressLint("HandlerLeak")
