@@ -22,7 +22,8 @@
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:layout_weight="1"
-        app:srcCompat="@drawable/dialog_character" />
+        android:contentDescription="@string/Description"
+        app:srcCompat="@drawable/happy" />
 
     <TextView
         android:layout_width="match_parent"
@@ -52,7 +53,7 @@
         android:layout_weight="1"
         android:fontFamily="@font/francois_one"
         android:gravity="center"
-        android:hint="Please enter your name"
+        android:hint="@string/EnterName"
         android:textAlignment="center"
         android:textColor="@color/Rhythm"
         android:textSize="18sp" />
@@ -63,6 +64,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:gravity="center"
+        android:hint="@string/PlayerName"
         android:inputType="textPersonName"
         android:textAlignment="center"
         android:textColor="@color/TickleMePink" />
@@ -73,7 +75,7 @@
         android:layout_height="wrap_content"
         android:background="@color/TrypanBlue"
         android:fontFamily="@font/francois_one"
-        android:text="Submit"
+        android:text="@string/Submit"
         android:textColor="@color/White"
         android:textSize="18sp" />
 

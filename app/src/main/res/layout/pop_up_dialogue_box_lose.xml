@@ -24,7 +24,7 @@
         android:layout_height="100dp"
         android:layout_weight="1"
         android:contentDescription="@string/Description"
-        app:srcCompat="@drawable/dialog_character" />
+        app:srcCompat="@drawable/sad" />
 
     <TextView
         android:layout_width="match_parent"

@@ -26,4 +26,7 @@
     <string name="Description">Descriptin</string>
     <string name="OK">OK</string>
     <string name="DummyText">DummyText</string>
+    <string name="EnterName">Please enter your name</string>
+    <string name="PlayerName">Player name here</string>
+    <string name="Submit">Submit</string>
 </resources>
