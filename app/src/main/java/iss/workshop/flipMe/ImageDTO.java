@@ -4,12 +4,9 @@ import android.graphics.Bitmap;
 
 public class ImageDTO{
     private Bitmap bitmap;
-    private String url;
     private int pos;
     private int id;
 
-    public ImageDTO() {
-    }
 
     public ImageDTO(int id) {
         this.id = id;
@@ -22,16 +19,11 @@ public class ImageDTO{
 
     public ImageDTO(Bitmap bitmap, String url) {
         this.bitmap = bitmap;
-        this.url = url;
     }
 
    
     public Bitmap getBitmap() {
         return bitmap;
-    }
-
-    public int getPos() {
-        return pos;
     }
 
     public void setPos(int pos) {
@@ -50,8 +42,4 @@ public class ImageDTO{
         this.bitmap = bitmap;
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
 }

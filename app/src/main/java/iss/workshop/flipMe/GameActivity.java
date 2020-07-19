@@ -129,8 +129,8 @@ public class GameActivity extends AppCompatActivity
             @Override
             public void run() {
 
-                    imageView1.setImageResource(R.drawable.dummy);
-                    imageView2.setImageResource(R.drawable.dummy);
+                imageView1.setImageResource(R.drawable.dummy);
+                imageView2.setImageResource(R.drawable.dummy);
 
             }
         };
