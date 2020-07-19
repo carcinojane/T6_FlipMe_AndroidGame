@@ -36,7 +36,7 @@ public class ImageAdapter extends BaseAdapter {
         return null;
     }
 
-    //create cell for gridview
+
     public View getView(int pos, View view, ViewGroup parent) {
 
         if (view == null) {
@@ -59,7 +59,6 @@ public class ImageAdapter extends BaseAdapter {
 
         if(mContext instanceof GameActivity) {
             imageView.setImageResource(R.drawable.dummy);
-            //imageView.setImageBitmap(image.getBitmap());
         }
 
         return view;
