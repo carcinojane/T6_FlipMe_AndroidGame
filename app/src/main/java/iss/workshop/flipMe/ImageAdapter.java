@@ -1,5 +1,6 @@
 package iss.workshop.flipMe;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,8 +12,6 @@ import java.util.ArrayList;
 public class ImageAdapter extends BaseAdapter {
     private final Context mContext;
     private final ArrayList<ImageDTO> images;
-    private  ArrayList<Integer> imageIds;
-    private ArrayList<Integer>imagePos;
 
 
     public ImageAdapter(Context mContext, ArrayList<ImageDTO> images) {
@@ -23,7 +22,7 @@ public class ImageAdapter extends BaseAdapter {
     //return no. of cells to render
     @Override
     public int getCount() {
-        return(images.size()>0)? images.size():0;
+        return Math.max(images.size(), 0);
     }
 
     @Override
@@ -37,6 +36,7 @@ public class ImageAdapter extends BaseAdapter {
     }
 
 
+    @SuppressLint("InflateParams")
     public View getView(int pos, View view, ViewGroup parent) {
 
         if (view == null) {
@@ -44,7 +44,7 @@ public class ImageAdapter extends BaseAdapter {
             view = layoutInflater.inflate(R.layout.linearlayout_images, null);
         }
         final ImageView imageView =
-                (ImageView) view.findViewById(R.id.imageview);
+                view.findViewById(R.id.imageview);
 
         final ImageDTO image = images.get(pos);
         image.setPos(pos);
@@ -52,8 +52,6 @@ public class ImageAdapter extends BaseAdapter {
 
         if(mContext instanceof WebViewActivity) {
             imageView.setImageBitmap(image.getBitmap());
-            imageIds = new ArrayList<>();
-            imagePos=new ArrayList<>();
         }
 
 

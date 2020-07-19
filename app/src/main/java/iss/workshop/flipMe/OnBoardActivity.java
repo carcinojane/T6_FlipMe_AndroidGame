@@ -14,12 +14,9 @@ import androidx.viewpager.widget.ViewPager;
 public class OnBoardActivity extends AppCompatActivity implements GestureDetector.OnGestureListener {
 
     private LinearLayout mDotLayout;
-    private ViewPager mSlideViewPager;
     private SliderAdapter sliderAdapter;
-    private TextView[] mDots;
     private static final String TAG = "Swipe Position";
-    private float x1, x2, y1, y2;
-    private static int MIN_DISTANCE = 150;
+    private float y1;
     private GestureDetector gestureDetector;
 
     @Override
@@ -27,8 +24,8 @@ public class OnBoardActivity extends AppCompatActivity implements GestureDetecto
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_onboard);
 
-        mSlideViewPager = (ViewPager) findViewById(R.id.slideViewPager);
-        mDotLayout = (LinearLayout) findViewById(R.id.dots);
+        ViewPager mSlideViewPager = findViewById(R.id.slideViewPager);
+        mDotLayout = findViewById(R.id.dots);
 
         sliderAdapter = new SliderAdapter(this);
 
@@ -41,9 +38,8 @@ public class OnBoardActivity extends AppCompatActivity implements GestureDetecto
     }
 
     public void addDotsIndicator(int position) {
-        mDots = new TextView[sliderAdapter.getCount()];
+        TextView[] mDots = new TextView[sliderAdapter.getCount()];
         mDotLayout.removeAllViews();
-        ;
         for (int i = 0; i < mDots.length; i++) {
             mDots[i] = new TextView(this);
             mDots[i].setText(Html.fromHtml("&#8226;"));
@@ -80,19 +76,17 @@ public class OnBoardActivity extends AppCompatActivity implements GestureDetecto
     public boolean onTouchEvent(MotionEvent event) {
 
         gestureDetector.onTouchEvent(event);
+        int MIN_DISTANCE = 150;
         switch (event.getAction()) {
             //starting to swipe time gesture
             case MotionEvent.ACTION_DOWN:
-                x1 = event.getX();
                 y1 = event.getY();
                 break;
             //ending time swipe gesture
             case MotionEvent.ACTION_UP:
-                x2 = event.getX();
-                y2 = event.getY();
+                float y2 = event.getY();
 
                 //getting value for horizontal swipe
-                float valueX = x2 - x1;
 
                 //getting value for vertical swipe
                 float valueY = y2 - y1;

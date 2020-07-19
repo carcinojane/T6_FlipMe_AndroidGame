@@ -1,5 +1,6 @@
 package iss.workshop.flipMe;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -26,6 +27,7 @@ public class LeaderBoardAdapter extends ArrayAdapter {
         this.playersList = playersList;
     }
 
+    @SuppressLint("InflateParams")
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
@@ -38,9 +40,9 @@ public class LeaderBoardAdapter extends ArrayAdapter {
             convertView = inflater.inflate(R.layout.leader_board_list_item, null);
             convertView.setOnClickListener(null);
             holder = new viewHolder();
-            holder.rankView = (TextView) convertView.findViewById(R.id.itemRank);
+            holder.rankView = convertView.findViewById(R.id.itemRank);
             holder.nameView = (TextView) convertView.findViewById(R.id.itemName);
-            holder.scoreView = (TextView) convertView.findViewById(R.id.itemScore);
+            holder.scoreView = convertView.findViewById(R.id.itemScore);
             convertView.setTag(holder);
         } else {
             holder = (viewHolder) convertView.getTag();

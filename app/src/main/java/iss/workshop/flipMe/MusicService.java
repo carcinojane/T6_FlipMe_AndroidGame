@@ -13,7 +13,7 @@ public class MusicService extends Service {
     MediaPlayer congratulationMusicPlayer;
     MediaPlayer timeoutMusicPlayer;
 
-    private final IBinder binder = (IBinder) new LocalBinder();
+    private final IBinder binder = new LocalBinder();
 
     public class LocalBinder extends Binder {
         MusicService getService() {

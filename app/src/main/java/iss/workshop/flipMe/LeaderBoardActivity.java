@@ -23,8 +23,7 @@ public class LeaderBoardActivity extends AppCompatActivity
     String currentSong;
 
     private static final String TAG = "Swipe Position";
-    private float x1, x2, y1, y2;
-    private static int MIN_DISTANCE = 150;
+    private float y1;
     private GestureDetector gestureDetector;
 
     @Override
@@ -63,10 +62,7 @@ public class LeaderBoardActivity extends AppCompatActivity
         System.out.println(playerList.size());
         SharedPreferences pref = getSharedPreferences("players", MODE_PRIVATE);
         int lastIndex, i = 0;
-        while (true){
-            if(!pref.contains("name"+i)){
-                break;
-            }
+        while (pref.contains("name" + i)) {
             i++;
         }
         lastIndex = i;
@@ -82,26 +78,22 @@ public class LeaderBoardActivity extends AppCompatActivity
     public boolean onTouchEvent(MotionEvent event) {
 
         gestureDetector.onTouchEvent(event);
+        int MIN_DISTANCE = 150;
         switch (event.getAction()){
             //starting to swipe time gesture
             case MotionEvent.ACTION_DOWN:
-                x1 = event.getX();
                 y1 = event.getY();
                 break;
             //ending time swipe gesture
             case MotionEvent.ACTION_UP:
-                x2 = event.getX();
-                y2 = event.getY();
-
-                //getting value for horizontal swipe
-                float valueX = x2 - x1;
+                float y2 = event.getY();
 
                 //getting value for vertical swipe
                 float valueY = y2 - y1;
 
-                if(Math.abs(valueY)>MIN_DISTANCE){
+                if(Math.abs(valueY)> MIN_DISTANCE){
                     //detect left to right swipe
-                    if (y1>y2){
+                    if (y1> y2){
                         Intent intent = new Intent(this, MainActivity.class);
                         startActivity(intent);
                         overridePendingTransition(R.anim.slide_in_bottom, R.anim.slide_in_bottom);

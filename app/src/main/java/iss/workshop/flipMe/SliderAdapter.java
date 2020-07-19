@@ -52,17 +52,18 @@ public class SliderAdapter extends PagerAdapter {
 
     @Override
     public boolean isViewFromObject(@NonNull View view, @NonNull Object object) {
-        return view == (RelativeLayout) object;
+        return view == object;
     }
 
+    @NonNull
     @Override
-    public Object instantiateItem(ViewGroup container, int position) {
-        layoutInflater = (LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
+    public Object instantiateItem(@NonNull ViewGroup container, int position) {
+        layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = layoutInflater.inflate(R.layout.slidelayout, container, false);
 
-        ImageView slideImageView = (ImageView) view.findViewById(R.id.slideImageView);
-        TextView slideHeading = (TextView) view.findViewById(R.id.slide_heading);
-        TextView slideDesc = (TextView) view.findViewById(R.id.slide_desc);
+        ImageView slideImageView = view.findViewById(R.id.slideImageView);
+        TextView slideHeading = view.findViewById(R.id.slide_heading);
+        TextView slideDesc = view.findViewById(R.id.slide_desc);
 
         slideImageView.setImageResource(slide_images[position]);
         slideHeading.setText(slide_headings[position]);
@@ -74,7 +75,7 @@ public class SliderAdapter extends PagerAdapter {
     }
 
     @Override
-    public void destroyItem(ViewGroup container, int position, Object object) {
+    public void destroyItem(ViewGroup container, int position, @NonNull Object object) {
         container.removeView((RelativeLayout) object);
     }
 }

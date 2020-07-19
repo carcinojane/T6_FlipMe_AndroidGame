@@ -39,8 +39,7 @@ public class WebViewActivity extends AppCompatActivity
     int difficulty;
 
     private static final String TAG = "Swipe Position";
-    private float x1, x2, y1, y2;
-    private static int MIN_DISTANCE = 150;
+    private float y1;
     private GestureDetector gestureDetector;
     private ArrayList<Integer> selectedIds = new ArrayList<>();
     private boolean isFetchButtonClicked=false;
@@ -70,10 +69,10 @@ public class WebViewActivity extends AppCompatActivity
 
 
         //get UI Elements
-        Button btnFetch = (Button)findViewById(R.id.btnFetch);
-        progressTxt=(TextView) findViewById(R.id.progressTxt);
-        urlTxt= (EditText)findViewById(R.id.urlTxt);
-        gridView = (GridView)findViewById(R.id.gridview);
+        Button btnFetch = findViewById(R.id.btnFetch);
+        progressTxt= findViewById(R.id.progressTxt);
+        urlTxt= findViewById(R.id.urlTxt);
+        gridView = findViewById(R.id.gridview);
         selectedIds.clear();
 
         //progress bar
@@ -159,6 +158,7 @@ public class WebViewActivity extends AppCompatActivity
 
     @SuppressLint("HandlerLeak")
     Handler progressBarHandler = new Handler(){
+      @SuppressLint("SetTextI18n")
       @Override
       public void handleMessage(@NonNull Message msg){
           progressBar.incrementProgressBy(1);
@@ -197,26 +197,22 @@ public class WebViewActivity extends AppCompatActivity
     public boolean onTouchEvent(MotionEvent event) {
 
         gestureDetector.onTouchEvent(event);
+        int MIN_DISTANCE = 150;
         switch (event.getAction()){
             //starting to swipe time gesture
             case MotionEvent.ACTION_DOWN:
-                x1 = event.getX();
                 y1 = event.getY();
                 break;
             //ending time swipe gesture
             case MotionEvent.ACTION_UP:
-                x2 = event.getX();
-                y2 = event.getY();
-
-                //getting value for horizontal swipe
-                float valueX = x2 - x1;
+                float y2 = event.getY();
 
                 //getting value for vertical swipe
                 float valueY = y2 - y1;
 
-                if(Math.abs(valueY)>MIN_DISTANCE){
+                if(Math.abs(valueY)> MIN_DISTANCE){
                     //detect left to right swipe
-                    if (y1>y2){
+                    if (y1> y2){
                         super.finish();
                         overridePendingTransition(R.anim.slide_in_bottom, R.anim.slide_in_bottom);
                         Log.d(TAG, "Top Swipe");
@@ -256,6 +252,7 @@ public class WebViewActivity extends AppCompatActivity
         return false;
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
         ImageView imageView= view.findViewById(R.id.imageview);
@@ -264,9 +261,9 @@ public class WebViewActivity extends AppCompatActivity
         System.out.println(imageId);
         if(isFetchButtonClicked){
         if(selectedIds.contains(imageId)){
-            selectedIds.remove(new Integer(imageId));
-            selectedIds.remove(new Integer(imageId));
-            imageView.clearColorFilter();;
+            selectedIds.remove(Integer.valueOf(imageId));
+            selectedIds.remove(Integer.valueOf(imageId));
+            imageView.clearColorFilter();
         }
         else{
             selectedIds.add(imageId);

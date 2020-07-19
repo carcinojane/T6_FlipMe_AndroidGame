@@ -2,6 +2,7 @@ package iss.workshop.flipMe;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.ComponentName;
 import android.content.Intent;
@@ -45,10 +46,9 @@ public class GameActivity extends AppCompatActivity
     ImageView imageView1;
     ImageView imageView2;
     TextView matches;
-    int selectCount=0;
-    int matchCount=0;
+    int selectCount = 0;
+    int matchCount = 0;
     private ImageDTO selectid1;
-    private ImageDTO selectid2;
     Handler handler;
     Runnable runnable;
     SharedPreferences pref;
@@ -63,11 +63,11 @@ public class GameActivity extends AppCompatActivity
     String currentSong;
     boolean continuePlaying;
     private static final String TAG = "Swipe Position";
-    private float x1, x2, y1, y2;
-    private static int MIN_DISTANCE = 150;
+    private float y1;
     private GestureDetector gestureDetector;
 
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,44 +79,44 @@ public class GameActivity extends AppCompatActivity
         //start timer
         startTimer();
 
-        Intent intent1=new Intent(this,MusicService.class);
-        bindService(intent1,this,BIND_AUTO_CREATE);
-        currentSong="game";
+        Intent intent1 = new Intent(this, MusicService.class);
+        bindService(intent1, this, BIND_AUTO_CREATE);
+        currentSong = "game";
 
-        flip=MediaPlayer.create(this,R.raw.flip);
-        wrong=MediaPlayer.create(this,R.raw.wrong);
-        correct=MediaPlayer.create(this,R.raw.correct);
+        flip = MediaPlayer.create(this, R.raw.flip);
+        wrong = MediaPlayer.create(this, R.raw.wrong);
+        correct = MediaPlayer.create(this, R.raw.correct);
 
         //get selected images
         Intent intent = getIntent();
-        selectedIds= intent.getIntegerArrayListExtra("ImageIds");
+        selectedIds = intent.getIntegerArrayListExtra("ImageIds");
+        assert selectedIds != null;
         Collections.shuffle(selectedIds);
-        allImages=WebViewActivity.images;
-        matches = (TextView)findViewById(R.id.matchesTxt);
+        allImages = WebViewActivity.images;
+        matches = findViewById(R.id.matchesTxt);
 
         //get difficulty
-        difficulty = intent.getIntExtra("difficulty",6);
+        difficulty = intent.getIntExtra("difficulty", 6);
         matches.setText(matchCount + "/" + difficulty);
 
-        for(int selectedId:selectedIds){
-            for(ImageDTO image:allImages){
+        for (int selectedId : selectedIds) {
+            for (ImageDTO image : allImages) {
                 int id = image.getId();
-                ImageDTO image1 = image;
-                if(id==selectedId){
-                    ImageDTO sImage = new ImageDTO(image1.getId(),image1.getBitmap());
+                if (id == selectedId) {
+                    ImageDTO sImage = new ImageDTO(image.getId(), image.getBitmap());
                     selectedImages.add(sImage);
                 }
             }
         }
 
         //set image adapter to game gridView
-        gridView = (GridView)findViewById(R.id.gameGridview);
+        gridView = findViewById(R.id.gameGridview);
 
-        if(difficulty==10){
+        if (difficulty == 10) {
             gridView.setNumColumns(4);
         }
 
-        ImageAdapter imageAdapter = new ImageAdapter(this,selectedImages);
+        ImageAdapter imageAdapter = new ImageAdapter(this, selectedImages);
         gridView.setAdapter(imageAdapter);
         gridView.setOnItemClickListener(this);
         gridView.setVerticalScrollBarEnabled(false);
@@ -134,15 +134,16 @@ public class GameActivity extends AppCompatActivity
 
 
     }
+
     @Override
-    public void onPause(){
+    public void onPause() {
         super.onPause();
-        if(musicService!=null&&!continuePlaying) musicService.stopPlaying();
+        if (musicService != null && !continuePlaying) musicService.stopPlaying();
     }
 
-    void playMusic(){
-        if(musicService!=null){
-            switch (currentSong){
+    void playMusic() {
+        if (musicService != null) {
+            switch (currentSong) {
                 case "game":
                     musicService.playGameSong();
                     break;
@@ -163,20 +164,18 @@ public class GameActivity extends AppCompatActivity
     }
 
 
+    @SuppressLint("ApplySharedPref")
     @Override
     public void onClick(View view) {
         int id = view.getId();
 
-        if(id==R.id.submitBtn) {
+        if (id == R.id.submitBtn) {
 
             pref = getSharedPreferences("players", MODE_PRIVATE);
             editor = pref.edit();
 
             int i = 0;
-            while (true) {
-                if (!pref.contains("name" + i)) {
-                    break;
-                }
+            while (pref.contains("name" + i)) {
                 i++;
             }
 
@@ -188,12 +187,12 @@ public class GameActivity extends AppCompatActivity
 
             //route user to leader board listing
             Intent intent = new Intent(GameActivity.this, LeaderBoardActivity.class);
-            intent.putExtra("currentSong",currentSong);
-            continuePlaying=true;
+            intent.putExtra("currentSong", currentSong);
+            continuePlaying = true;
             startActivity(intent);
         }
 
-        if(id==R.id.okBtn){
+        if (id == R.id.okBtn) {
             popUpBoxLose.dismiss();
 
             Intent intent = new Intent(this, MainActivity.class);
@@ -202,19 +201,20 @@ public class GameActivity extends AppCompatActivity
 
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-        currentSong="game";
+        currentSong = "game";
         ViewGroup gridElement = (ViewGroup) gridView.getChildAt(i);
         ImageView currImg = (ImageView) gridElement.getChildAt(0);
         ImageDTO image = selectedImages.get(i);
         currImg.setImageBitmap(image.getBitmap());
         flip.start();
-        if(!matchedCards.contains(image.getId())) {
+        if (!matchedCards.contains(image.getId())) {
             if (matchCount < difficulty) {
+                ImageDTO selectid2;
                 if (selectCount == 0) {
                     selectid1 = null;
-                    selectid2 = null;
                     imageView1 = null;
                     imageView2 = null;
                 }
@@ -228,8 +228,7 @@ public class GameActivity extends AppCompatActivity
                     selectid2 = image;
                     imageView2 = currImg;
 
-                    if (selectid1 != null && selectid2 != null
-                            && imageView1 != null && imageView2 != null) {
+                    if (selectid1 != null && imageView1 != null) {
 
                         if (selectid1.getBitmap() != selectid2.getBitmap() && imageView1 != null && imageView2 != null) {
                             handler.postDelayed(runnable, 300);
@@ -250,27 +249,28 @@ public class GameActivity extends AppCompatActivity
         }
     }
 
-    private void startTimer(){
+    private void startTimer() {
         final TextView timer = findViewById(R.id.timer);
-        countDownTimer = new CountDownTimer(60000, 1000){
-            public void onTick(long millisUntilFinished){
-                int minutes = (int) millisUntilFinished/60000;
-                int seconds = (int) (millisUntilFinished)/1000;
-                timer.setText(String.format("%d:%02d", minutes,seconds));
+        countDownTimer = new CountDownTimer(60000, 1000) {
+            public void onTick(long millisUntilFinished) {
+                int minutes = (int) millisUntilFinished / 60000;
+                int seconds = (int) (millisUntilFinished) / 1000;
+                timer.setText(String.format("%d:%02d", minutes, seconds));
                 remainder = millisUntilFinished;
             }
-            public void onFinish(){
+
+            public void onFinish() {
                 stopGame();
 
             }
         }.start();
     }
 
-    private void totalScore(){
-        if(difficulty==6) {
+    private void totalScore() {
+        if (difficulty == 6) {
             score = (int) remainder / 100;
         }
-        if(difficulty==10){
+        if (difficulty == 10) {
             score = (int) remainder / 50;
         }
         if (remainder < 0) {
@@ -306,7 +306,7 @@ public class GameActivity extends AppCompatActivity
         }
 
         //get player name;
-        playerName =(EditText) popUp.findViewById(R.id.nameTxt);
+        playerName = popUp.findViewById(R.id.nameTxt);
         playerName.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -315,18 +315,22 @@ public class GameActivity extends AppCompatActivity
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                if(playerName.getText().toString().length()==0){
+                if (playerName.getText().toString().length() == 0) {
+                    assert submitName != null;
                     submitName.setEnabled(false);
-                }else {
+                } else {
+                    assert submitName != null;
                     submitName.setEnabled(true);
                 }
             }
 
             @Override
             public void afterTextChanged(Editable editable) {
-                if(playerName.getText().toString().length()==0){
+                if (playerName.getText().toString().length() == 0) {
+                    assert submitName != null;
                     submitName.setEnabled(false);
-                }else {
+                } else {
+                    assert submitName != null;
                     submitName.setEnabled(true);
                 }
 
@@ -360,12 +364,12 @@ public class GameActivity extends AppCompatActivity
 
     }
 
-    void stopGame(){
+    void stopGame() {
         countDownTimer.cancel();
-        if(matchCount == difficulty){
+        if (matchCount == difficulty) {
             totalScore();
             popUpDialogue();
-        } else{
+        } else {
             popUpDialogueLose();
             musicService.playTimeOutSong();
         }
@@ -373,9 +377,9 @@ public class GameActivity extends AppCompatActivity
 
     @Override
     public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
-        MusicService.LocalBinder binder=(MusicService.LocalBinder) iBinder;
-        if (binder!=null){
-            musicService=binder.getService();
+        MusicService.LocalBinder binder = (MusicService.LocalBinder) iBinder;
+        if (binder != null) {
+            musicService = binder.getService();
             playMusic();
         }
     }
@@ -390,26 +394,22 @@ public class GameActivity extends AppCompatActivity
     public boolean onTouchEvent(MotionEvent event) {
 
         gestureDetector.onTouchEvent(event);
-        switch (event.getAction()){
+        int MIN_DISTANCE = 150;
+        switch (event.getAction()) {
             //starting to swipe time gesture
             case MotionEvent.ACTION_DOWN:
-                x1 = event.getX();
                 y1 = event.getY();
                 break;
             //ending time swipe gesture
             case MotionEvent.ACTION_UP:
-                x2 = event.getX();
-                y2 = event.getY();
-
-                //getting value for horizontal swipe
-                float valueX = x2 - x1;
+                float y2 = event.getY();
 
                 //getting value for vertical swipe
                 float valueY = y2 - y1;
 
-                if(Math.abs(valueY)>MIN_DISTANCE){
+                if (Math.abs(valueY) > MIN_DISTANCE) {
                     //detect left to right swipe
-                    if (y1>y2){
+                    if (y1 > y2) {
                         Intent intent = new Intent(this, MainActivity.class);
                         startActivity(intent);
                         overridePendingTransition(R.anim.slide_in_bottom, R.anim.slide_in_bottom);

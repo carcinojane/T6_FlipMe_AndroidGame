@@ -10,14 +10,10 @@ import android.os.IBinder;
 import android.view.View;
 import android.widget.Button;
 
-import java.util.ArrayList;
-
 public class MainActivity extends AppCompatActivity
 implements View.OnClickListener, ServiceConnection {
     MusicService musicService;
     boolean continuePlaying;
-    String url;
-    ArrayList<ImageDTO> images;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

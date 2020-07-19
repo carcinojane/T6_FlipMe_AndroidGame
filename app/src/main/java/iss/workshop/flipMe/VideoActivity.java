@@ -20,8 +20,7 @@ public class VideoActivity extends AppCompatActivity implements GestureDetector.
     protected MediaController mc;
 
     private static final String TAG = "Swipe Position";
-    private float x1, x2, y1, y2;
-    private static int MIN_DISTANCE = 150;
+    private float y1;
     private GestureDetector gestureDetector;
 
     @Override
@@ -44,7 +43,7 @@ public class VideoActivity extends AppCompatActivity implements GestureDetector.
     }
 
     protected void playVideo() {
-        videoView = (VideoView) findViewById(R.id.videoView);
+        videoView = findViewById(R.id.videoView);
         if (videoView == null)
             return;
 
@@ -68,19 +67,17 @@ public class VideoActivity extends AppCompatActivity implements GestureDetector.
     public boolean onTouchEvent(MotionEvent event) {
 
         gestureDetector.onTouchEvent(event);
+        int MIN_DISTANCE = 150;
         switch (event.getAction()) {
             //starting to swipe time gesture
             case MotionEvent.ACTION_DOWN:
-                x1 = event.getX();
                 y1 = event.getY();
                 break;
             //ending time swipe gesture
             case MotionEvent.ACTION_UP:
-                x2 = event.getX();
-                y2 = event.getY();
+                float y2 = event.getY();
 
                 //getting value for horizontal swipe
-                float valueX = x2 - x1;
 
                 //getting value for vertical swipe
                 float valueY = y2 - y1;

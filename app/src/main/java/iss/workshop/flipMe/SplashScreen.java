@@ -22,9 +22,6 @@ public class SplashScreen extends AppCompatActivity {
     //animation variables
     Animation team6Anim, splashScreenAnim;
 
-    //time-interval for the welcome screen
-    private static int SPLASH_TIME_OUT = 3000;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,6 +42,8 @@ public class SplashScreen extends AppCompatActivity {
         character.setAnimation(splashScreenAnim);
 
         //splash screen
+        //time-interval for the welcome screen
+        int SPLASH_TIME_OUT = 3000;
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {

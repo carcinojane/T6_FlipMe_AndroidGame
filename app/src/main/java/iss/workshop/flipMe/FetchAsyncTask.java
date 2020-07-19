@@ -36,7 +36,7 @@ public class FetchAsyncTask extends AsyncTask<String, ImageDTO, Void> {
     }
 
     String getHTMLText(String urlString){
-        StringBuffer stringBuffer = new StringBuffer();
+        StringBuilder stringBuffer = new StringBuilder();
         try {
             URL url = new URL(urlString);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -69,8 +69,7 @@ public class FetchAsyncTask extends AsyncTask<String, ImageDTO, Void> {
         }
 
         HashSet<String> uniqueURLs= new HashSet(imgURLs);
-        ArrayList<String> URLs = new ArrayList<>(uniqueURLs);
-        return URLs;
+        return new ArrayList<>(uniqueURLs);
     }
 
     void getBitmaps(ArrayList<String> imgURLs) {
