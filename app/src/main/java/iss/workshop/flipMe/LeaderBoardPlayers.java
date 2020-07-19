@@ -1,15 +1,11 @@
 package iss.workshop.flipMe;
 
-import android.app.Activity;
 
 public class LeaderBoardPlayers implements Comparable<LeaderBoardPlayers>{
     private int playerRank;
     private String playerName;
     private int playerScore;
 
-
-    public LeaderBoardPlayers() {
-    }
 
     public LeaderBoardPlayers(String playerName, int playerScore){
         this.playerName = playerName;
@@ -28,16 +24,8 @@ public class LeaderBoardPlayers implements Comparable<LeaderBoardPlayers>{
         return playerName;
     }
 
-    public void setPlayerName(String playerName) {
-        this.playerName = playerName;
-    }
-
     public int getPlayerScore() {
         return playerScore;
-    }
-
-    public void setPlayerScore(int playerScore) {
-        this.playerScore = playerScore;
     }
 
     @Override

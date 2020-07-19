@@ -48,7 +48,6 @@ public class WebViewActivity extends AppCompatActivity
     //UI Elements
     EditText urlTxt;
     GridView gridView;
-    ImageView imageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,13 +74,11 @@ public class WebViewActivity extends AppCompatActivity
         progressTxt=(TextView) findViewById(R.id.progressTxt);
         urlTxt= (EditText)findViewById(R.id.urlTxt);
         gridView = (GridView)findViewById(R.id.gridview);
-        //imageView=(ImageView)findViewById(R.id.imageview);
         selectedIds.clear();
 
         //progress bar
         progressBar = findViewById(R.id.progressBar);
         progressTxt=findViewById(R.id.progressTxt);
-        //progressBar.setMax(100);
         progressBar.setMax(20);
 
 
