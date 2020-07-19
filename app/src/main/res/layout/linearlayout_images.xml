@@ -8,6 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:clickable="false"
+        android:contentDescription="@string/Description"
         android:scaleType="fitXY" />
 
     <ImageView
@@ -15,5 +16,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:clickable="false"
+        android:contentDescription="@string/Description"
         android:scaleType="fitXY" />
 </LinearLayout>

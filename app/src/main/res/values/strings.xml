@@ -23,4 +23,7 @@
     <string name="leader_board_table_header_name">Name</string>
     <string name="leader_board_table_header_score">Score</string>
     <string name="back">Back</string>
+    <string name="Description">Descriptin</string>
+    <string name="OK">OK</string>
+    <string name="DummyText">DummyText</string>
 </resources>

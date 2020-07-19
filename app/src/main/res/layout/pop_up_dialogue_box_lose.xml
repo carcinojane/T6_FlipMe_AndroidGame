@@ -23,6 +23,7 @@
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:layout_weight="1"
+        android:contentDescription="@string/Description"
         app:srcCompat="@drawable/dialog_character" />
 
     <TextView
@@ -43,7 +44,7 @@
         android:layout_height="wrap_content"
         android:background="@color/TrypanBlue"
         android:fontFamily="@font/francois_one"
-        android:text="OK"
+        android:text="@string/OK"
         android:textColor="@color/White"
         android:textSize="18sp" />
 
