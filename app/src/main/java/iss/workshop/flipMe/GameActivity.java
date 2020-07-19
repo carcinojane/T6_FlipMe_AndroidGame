@@ -38,7 +38,6 @@ public class GameActivity extends AppCompatActivity
     MediaPlayer wrong;
     private MusicService musicService;
     GridView gridView;
-    ImageView imageView;
     ArrayList<ImageDTO> allImages;
     ArrayList<ImageDTO> selectedImages = new ArrayList<>();
     ArrayList<Integer> selectedIds;
@@ -60,7 +59,6 @@ public class GameActivity extends AppCompatActivity
     EditText playerName;
     AlertDialog popUpBox;
     AlertDialog popUpBoxLose;
-    public static MediaPlayer game;
     int difficulty;
     String currentSong;
     boolean continuePlaying;
@@ -234,7 +232,7 @@ public class GameActivity extends AppCompatActivity
                             && imageView1 != null && imageView2 != null) {
 
                         if (selectid1.getBitmap() != selectid2.getBitmap() && imageView1 != null && imageView2 != null) {
-                            handler.postDelayed(runnable, 500);
+                            handler.postDelayed(runnable, 300);
                             wrong.start();
                         } else if (selectid1.getBitmap() == selectid2.getBitmap()) {
                             matchCount++;
