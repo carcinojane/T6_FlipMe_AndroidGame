@@ -37,9 +37,7 @@ public class LeaderBoardActivity extends AppCompatActivity
         //initialize gesture detector
         this.gestureDetector = new GestureDetector(LeaderBoardActivity.this, this);
 
-//        SharedPreferences pref = getSharedPreferences("players",MODE_PRIVATE);
-//        pref.getString("name","");
-//        pref.getInt("score",0);
+
         Intent intent=new Intent(this,MusicService.class);
         bindService(intent,this,BIND_AUTO_CREATE);
         currentSong=getIntent().getStringExtra("currentSong");
@@ -52,9 +50,6 @@ public class LeaderBoardActivity extends AppCompatActivity
         List<LeaderBoardPlayers> leaderBoardPlayersList = getLeaderBoardPlayersList();
         Collections.sort(leaderBoardPlayersList);
         int rank = 1;
-//        for(LeaderBoardPlayers player : leaderBoardPlayersList){
-//            player.setPlayerRank(rank++);
-//        }
 
         for (int i = 0; i < leaderBoardPlayersList.size();i++){
             leaderBoardPlayersList.get(i).setPlayerRank(rank++);
@@ -82,13 +77,6 @@ public class LeaderBoardActivity extends AppCompatActivity
             playerList.add(player);
         }
         return playerList;
-
-//        if(pref.contains("name") && pref.contains("score")){
-//            LeaderBoardPlayers players = new LeaderBoardPlayers(pref.getString("name",""),pref.getInt("score",0));
-//            playerList.add(players);
-//        }
-//        System.out.println(playerList.size());
-//        return  playerList;
     }
 
     //override on touch event
