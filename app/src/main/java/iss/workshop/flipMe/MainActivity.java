@@ -80,7 +80,7 @@ implements View.OnClickListener, ServiceConnection {
 
         if(id==R.id.btnStartEasy) {
             continuePlaying=true;
-            //get images bitmap
+  
 
             //image adapter
             Intent intent = new Intent(this, WebViewActivity.class);
@@ -92,7 +92,7 @@ implements View.OnClickListener, ServiceConnection {
 
         if(id==R.id.btnStartDifficult) {
             continuePlaying=true;
-            //get images bitmap
+
 
             //image adapter
             Intent intent = new Intent(this, WebViewActivity.class);
