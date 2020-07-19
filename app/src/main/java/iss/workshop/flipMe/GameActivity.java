@@ -213,8 +213,6 @@ public class GameActivity extends AppCompatActivity
         ImageDTO image = selectedImages.get(i);
         currImg.setImageBitmap(image.getBitmap());
         flip.start();
-        //imageView=(ImageView)findViewById(R.id.gameImageview);
-        //Bitmap bitmap = image.getBitmap();
         if(!matchedCards.contains(image.getId())) {
             if (matchCount < difficulty) {
                 if (selectCount == 0) {
